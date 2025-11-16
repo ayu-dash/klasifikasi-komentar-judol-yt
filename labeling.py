@@ -1,169 +1,155 @@
 import pandas as pd
 import re
-from tqdm import tqdm
-from datetime import datetime
-import os
 
-class AdvancedJudiLabelingEngine:
-    def __init__(self):
-        # 1️⃣ STRONG BRANDS
-        self.strong_brands = [
-            'pesiar88', 'mbak4d2', 'g3d3', 'sor76', 'squad777', 'inigrok681h',
-            'tapidora77', 'cobadora77', 'denyut69', 'gadaob4t', 'major189', 'starstruck',
-            'tkp189', 'grokk681h', 'dora77', 'pakcoy', 'derr', 'sgi88','sg188','sgi808',
-            'sgi888','sgi','sg','pstoto','pstoto99','pstoto88','pstoto77','psto',
-            'arwanatoto','arwana','toto','pulauwin','pulau','win','lazadatoto','lazada4d',
-            'lazada88','lazada77','lazada','visi4d','visi','jaya4d','mega4d','super4d',
-            'ultra4d','prime4d','royal4d','king4d','queen4d','pro4d','max4d','gold4d',
-            'silver4d','bronze4d','new4d','neo4d','alpha4d','beta4d','omega4d','delta4d',
-            'city4d','metro4d','urban4d','capital4d','luck4d','fortune4d','rich4d','wealth4d',
-            'star4d','moon4d','sun4d','galaxy4d','speed4d','quick4d','fast4d','instant4d',
-            'insan4d','pandora4d','naga4d','hoki4d','paste4d','sendal4d','sekali4d',
-            'togel62','garudahoki','garuda','hoki','dewapoker','pokermasa','masapoker',
-            'karturapi','dominoqq','bandarqq','capsasusun','cemeonline','berkahslot','berkah',
-            'slot','mini1221','mini12211','mini','mini88','mini77','mini99','mini55','mini33',
-            'mini22','mini11','mini123','mini321','zeus','bibit168','bibit169','cilik168',
-            'grok681h','tapigrok681h','samagrok681h','xrpgrok681h','hpgrok681h'
-        ]
-
-        # 2️⃣ PATTERN DETECTION
-        self.patterns = [
-            r'mini\d+', r'maxi\d+', r'mega\d+', r'super\d+', r'pro\d+',
-            r'royal\d+', r'king\d+', r'queen\d+', r'\b\d{4,}\b',
-            r'[a-z]{3,}\d{2,}', r'\w*slot\w*', r'\w*togel\w*',
-            r'\w*judi\w*', r'\w*poker\w*', r'\w*casino\w*',
-            r'[a-z]{3,}4d', r'[a-z]{3,}\s*4[dD]',
-            r'\b[a-z]\d+[a-z]\d*\b',      # g3d3, s0r76
-            r'\b[a-z]+\d+[a-z]+\d*\b',    # inigrok681h
-            r'\b[a-z]+\d{3,}\b',          # squad777, denyut69
-        ]
-
-        # 3️⃣ DOMAIN KEYWORDS
-        self.domain_keywords = [
-            'togel','slot','judi','poker','casino','taruhan','betting','bola','scatter',
-            'jackpot','menang','rezeki','untung','profit','bonus','main','eth','btc','bnb',
-            'portofolio','buy','sell','pump','market'
-        ]
-
-    # ----------------- Helper Functions -----------------
-    def detect_strong_brands(self, text):
+def improved_label_gambling_comments(csv_file_path, output_file_path=None):
+    """
+    Melabeli komentar judi dengan algoritma yang lebih akurat
+    """
+    
+    # Baca file
+    try:
+        df = pd.read_csv(csv_file_path, encoding='latin-1', engine='python', on_bad_lines='skip')
+    except:
+        df = pd.read_csv(csv_file_path, encoding='latin-1', error_bad_lines=False)
+    
+    print(f"File berhasil dibaca. Total baris: {len(df)}")
+    
+    # Kata kunci judi yang lebih spesifik
+    gambling_platforms = [
+        # Platform/situs judi
+        'lazadatoto', 'pstoto99', 'mini1221', 'kyt4d', 'togel62', 'bukit4d', 
+        'pelatih4d', 'sajak4d', 'sendal4d', 'gelora4d', 'mona4d', 'sgi88',
+        'garudahoki', 'arwanatoto', 'plazabola', 'insan4d', 'berkahslot',
+        'pulauwin', 'paste4d', 'kurirslot', 'traxearn', 'biptrade', 'garuda69', 'phoenix638',
+        'mbak4d2', 'gaspol 168', 'mega177', 'upahslot', 'sikat88', 'pesiar88', 'grok681h', 'timo4d',
+        'bet4d', 'dibet4d', 'denyut69', 'squad777', 'pr0be 855', 'pr0be', 'spin68', 'pulauwin', 'pulau777' 
+    ]
+    
+    gambling_terms = [
+        # Istilah teknis perjudian
+        'depo', 'deposit', 'wd', 'withdraw', 'modal', 'saldo', 'maxwin', 'scatter',
+        'jepe', 'gacor', 'hoki', 'jackpot', 'bet', 'taruhan', 'slot', 'togel',
+        'casino', 'poker', 'bandar', 'agen', 'bonus', 'freechip', 'turnover',
+        'rollingan', 'cashback', 'rebate', 'situs', 'platform', 'permainan uang',
+        'investasi', 'profit', 'cuan', 'pasang', 'wede', 'jp', 'pragmatic', 'rtp'
+    ]
+    
+    def is_gambling_comment(text):
+        """
+        Fungsi yang lebih akurat untuk mendeteksi komentar judi
+        """
+        if not isinstance(text, str):
+            return 0
+        
         text_lower = text.lower()
-        return [brand for brand in self.strong_brands if brand in text_lower]
+        
+        # 1. Cek platform judi - jika ada, langsung label 1
+        for platform in gambling_platforms:
+            if platform in text_lower:
+                return 1
+        
+        # 2. Cek kombinasi istilah judi + konteks uang
+        gambling_terms_found = []
+        for term in gambling_terms:
+            if term in text_lower:
+                gambling_terms_found.append(term)
+        
+        # Jika ada istilah judi, cek konteksnya
+        if gambling_terms_found:
+            # Pattern untuk nominal uang
+            money_patterns = [
+                r'\d+[km]',  # 100k, 50m
+                r'\d+\s*(rb|ribu|jt|juta|k|m)',  # 100 rb, 50 juta
+                r'rp\s*\d+',  # Rp 100000
+                r'\d+\s*(rupiah|perak)'  # 100 ribu rupiah
+            ]
+            
+            # Cek apakah ada pattern uang
+            has_money = any(re.search(pattern, text_lower) for pattern in money_patterns)
+            
+            # Kata-kata yang bisa menyebabkan false positive
+            false_positive_triggers = ['game', 'main', 'mlbb', 'mobile legend', 'turnamen', 'tournament']
+            has_false_positive = any(trigger in text_lower for trigger in false_positive_triggers)
+            
+            # Jika ada uang DAN tidak ada konteks game, label sebagai judi
+            if has_money and not has_false_positive:
+                return 1
+            
+            # Jika ada kombinasi istilah judi yang spesifik
+            strong_combinations = [
+                ['depo', 'wd'], ['modal', 'wd'], ['saldo', 'wd'],
+                ['maxwin', 'depo'], ['gacor', 'depo'], ['jepe', 'modal'], ['rtp','slot']
+            ]
+            
+            for combo in strong_combinations:
+                if all(term in gambling_terms_found for term in combo):
+                    return 1
+        
+        return 0
+    
+    # Terapkan labeling
+    print("Melabeli komentar dengan algoritma improved...")
+    df['target'] = df['cleaned_comment_text'].apply(is_gambling_comment)
+    
+    # Statistik
+    total = len(df)
+    judi = df['target'].sum()
+    normal = total - judi
+    
+    print(f"\n=== HASIL LABELING YANG LEBIH AKURAT ===")
+    print(f"Total komentar: {total}")
+    print(f"Komentar judi (target=1): {judi} ({judi/total*100:.2f}%)")
+    print(f"Komentar normal (target=0): {normal} ({normal/total*100:.2f}%)")
+    
+    # Test case untuk komentar yang bermasalah
+    test_cases = [
+        "sonic cuma divisi ml divisi laen kalah",
+        "lazadatoto barusan wd 3 ikat modal 100 aja",
+        "main game mlbb kalah terus",
+        "depo 50k wd 500k di garudahoki",
+        "turnamen mlbb seru banget"
+    ]
+    
+    print(f"\n=== TEST CASE ===")
+    for test in test_cases:
+        result = is_gambling_comment(test)
+        print(f"'{test}' -> {result}")
+    
+    # Simpan hasil
+    if output_file_path:
+        df.to_csv(output_file_path, index=False, encoding='utf-8')
+        print(f"\nFile disimpan sebagai: {output_file_path}")
+    
+    return df
 
-    def detect_patterns(self, text):
-        text_lower = text.lower()
-        matches = []
-        for pat in self.patterns:
-            matches.extend(re.findall(pat, text_lower))
-        return matches
+# Analisis false positive
+def analyze_false_positives(df):
+    """
+    Menganalisis komentar yang mungkin salah label
+    """
+    print(f"\n=== ANALISIS FALSE POSITIVE ===")
+    
+    # Cari komentar yang mengandung kata "kalah" tapi bukan judi
+    kalah_comments = df[df['cleaned_comment_text'].str.contains('kalah', na=False) & (df['target'] == 1)]
+    
+    print(f"Komentar dengan kata 'kalah' yang dilabeli judi: {len(kalah_comments)}")
+    for idx, row in kalah_comments.head(10).iterrows():
+        print(f"- {row['cleaned_comment_text']}")
+    
+    # Cari komentar yang mengandung kata "game" tapi dilabeli judi
+    game_comments = df[df['cleaned_comment_text'].str.contains('game', na=False) & (df['target'] == 1)]
+    print(f"\nKomentar dengan kata 'game' yang dilabeli judi: {len(game_comments)}")
 
-    def calculate_domain_score(self, text):
-        text_lower = text.lower()
-        score = sum(2 for kw in self.domain_keywords if kw in text_lower)
-        return score
-
-    # ----------------- Main Labeling -----------------
-    def advanced_labeling(self, text):
-        text_lower = text.lower()
-        details = {}
-
-        # Strong brand
-        brands = self.detect_strong_brands(text)
-        if brands:
-            details['strong_brands'] = brands
-            return 'judol', 0.99, 'strong_brand_detected', details
-
-        # Patterns
-        patterns = self.detect_patterns(text)
-        details['patterns'] = patterns
-
-        # Domain score
-        domain_score = self.calculate_domain_score(text)
-        details['domain_score'] = domain_score
-
-        # Decision logic
-        if domain_score >= 2 or patterns:
-            return 'judol', 0.9, 'pattern_or_domain', details
-
-        return 'bukan', 0.7, 'insufficient_evidence', details
-
-    # ----------------- Dataset Labeling -----------------
-    def label_dataset(self, df, text_column='comment_text'):
-        df['label_ultimate'] = 'bukan'
-        df['label_confidence'] = 0.0
-        df['label_category'] = 'unknown'
-        df['strong_brands_detected'] = ''
-        df['patterns_detected'] = ''
-        df['labeling_timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-        for idx, row in tqdm(df.iterrows(), total=len(df), desc="Labeling dataset"):
-            text = row[text_column]
-            label, conf, cat, details = self.advanced_labeling(text)
-
-            df.at[idx, 'label_ultimate'] = label
-            df.at[idx, 'label_confidence'] = conf
-            df.at[idx, 'label_category'] = cat
-            df.at[idx, 'strong_brands_detected'] = ', '.join(details.get('strong_brands', []))
-            df.at[idx, 'patterns_detected'] = ', '.join(details.get('patterns', []))
-
-        return df
-
-    # ----------------- Analysis Function -----------------
-    def analyze_labeling_results(self, df):
-        print("\n" + "="*60)
-        print("📊 ADVANCED LABELING RESULTS ANALYSIS")
-        print("="*60 + "\n")
-
-        # Distribusi label ultimate
-        label_counts = df['label_ultimate'].value_counts()
-        total = len(df)
-        print("🎯 Distribusi Label Ultimate:")
-        for label, count in label_counts.items():
-            print(f"   {label:<10}: {count:>5} ({count/total*100:>5.2f}%)")
-        print()
-
-        # Distribusi kategori
-        cat_counts = df['label_category'].value_counts()
-        print("📈 Label Categories:")
-        for cat, count in cat_counts.items():
-            print(f"   {cat:<25}: {count:>5} ({count/total*100:>5.2f}%)")
-        print()
-
-        # Strong brands summary
-        strong_brands_series = df['strong_brands_detected'].str.split(', ').explode()
-        strong_brands_counts = strong_brands_series.value_counts()
-        print(f"🔍 Strong Brands Detection: {strong_brands_counts.sum()} entries")
-        for brand, count in strong_brands_counts.head(10).items():
-            print(f"   {brand:<20}: {count}")
-        print("="*60 + "\n")
-
-    # ----------------- Save CSV -----------------
-    def save_to_csv(self, df, filename=None, output_dir='output'):
-        os.makedirs(output_dir, exist_ok=True)
-        if not filename:
-            filename = f'labeled_dataset_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv'
-        path = os.path.join(output_dir, filename)
-        df.to_csv(path, index=False, encoding='utf-8')
-        print(f"Hasil disimpan di {path}")
-        return path
-
-# ----------------- Contoh Penggunaan -----------------
+# Jalankan program
 if __name__ == "__main__":
-    # Sample dataset
-    sample_data = {
-        'comment_text': [
-            "sgi88 slot bonus 100% deposit 25rb saja",
-            "hati-hati dengan judi online, saya bangkrut karenanya",
-            "grok681h bakal running cycle ini udah ga perlu tanya",
-            "jangan main judi online kenapa masih terdeteksi judol"
-        ]
-    }
-    df = pd.read_csv('labeled_comments.csv')
-
-    labeler = AdvancedJudiLabelingEngine()
-    labeled_df = labeler.label_dataset(df)
-    labeler.save_to_csv(labeled_df)
-    labeler.analyze_labeling_results(labeled_df)
-
-    # Print contoh
-    print(labeled_df[['comment_text','label_ultimate','label_confidence','label_category','strong_brands_detected','patterns_detected']])
+    input_file = "cleaned_comments.csv"
+    output_file = "labeled_comments.csv"
+    
+    df = improved_label_gambling_comments(input_file, output_file)
+    
+    # Analisis false positive
+    analyze_false_positives(df)
+    
+    # Tampilkan preview
+    print(f"\n=== PREVIEW HASIL ===")
+    print(df[['cleaned_comment_text', 'target']].head(15))
