@@ -12,7 +12,6 @@ import pandas as pd
 # LIST API KEYS
 # =============================
 API_KEYS = [
-    "API_KEY"
 ]
 
 current_key_index = 0
@@ -37,12 +36,12 @@ def switch_api_key():
 ssl._create_default_https_context = ssl._create_unverified_context
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-keywords = ["slot", "toto", "casino", "poker", "rtp", "jackpot", "gacor", "zeus"]
+keywords = ["slot", "toto", "casino", "poker", "jackpot", "gacor", "zeus", "togel", "xinn", "pascol", "spaceman", "regaza", "mahjong"]
 custom_video_ids = ["YZ4N8jH5R_M", "s9OU_mLo-KU", "1msXOdJcG9s", "Nkh1KiTS5CM", 
                    "rkoymgMW-8M", "7TsgXbRGOQo", "yY76VsIplzo", "JpaK8OhL4FI", 
                    "UnVihN2_M2U", "GHbSjBdMB8E", "4k6rzuj0bWI", "FpSJFqYaRb8", "dXtcUtRJO0g"]
 
-max_videos_per_keyword = 100
+max_videos_per_keyword = 300
 max_comments_per_video = 500
 
 # =============================
@@ -62,7 +61,7 @@ def is_promo_comment(text):
     promo_words = [
         "toto", "slot", "gacor", "maxwin", "casino", "angka hoki",
         "bonus", "deposit", "jackpot", "akun", "daftar", "situs",
-        "wd", "link", "klik", "spin", "rtp", "bet", "bo", "scatter"
+        "wd", "link", "klik", "spin", "bet", "bo", "scatter"
     ]
     t = text.lower()
     return any(word in t for word in promo_words)
@@ -213,7 +212,7 @@ for kw in keywords:
 # SIMPAN HASIL
 # =============================
 df = pd.DataFrame(all_comments)
-df.to_csv("comments_from_scraping.csv", index=False, encoding="utf-8-sig")
+df.to_csv("comments_from_scraping_new.csv", index=False, encoding="utf-8-sig")
 
 if skipped_log:
     pd.DataFrame(skipped_log).to_csv("skipped_videos.csv", index=False, encoding="utf-8-sig")
