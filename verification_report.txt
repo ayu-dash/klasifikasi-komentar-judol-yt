@@ -1,0 +1,1218 @@
+Total labeled comments: 79296
+------------------------------
+
+
+[POTENTIAL FALSE POSITIVES (Label 1 but suspicious)]
+====================================================
+
+1. Low AI Confidence (< 0.3) but Labeled 1 (Likely Regex/Expert hallucination): 389
+ID: 142
+Text: B0S4N 7un9kaD ? buruan join di 𝐏𝐀𝐒𝐓𝐄𝟒𝐃
+Label: 1 | AI Prob: 0.2807
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 252
+Text: pak jarwo emang lucu 𝐒𝐄𝐊𝐀𝐋𝐈𝟒𝐃, ada aja lawakkan nya
+Label: 1 | AI Prob: 0.0197
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 269
+Text: Adem banget nontonnya, aura P͟͟U͟͟L͟͟A͟͟U͟͟W͟͟ I͟͟N͟͟ berasa.
+Label: 1 | AI Prob: 0.1707
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 423
+Text: Bg pascol adu mekanik ,aku sih adu JP di ⚽️ℙ𝕃𝔸ℤ𝔸𝔹𝕆𝕃𝔸⚽️
+Label: 1 | AI Prob: 0.0012
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 472
+Text: `•.,¸¸,.•´¯ 𝕒𝐑𝕨ά𝐍𝒶тσt𝐨 ¯`•.,¸¸,.•´ jangan kasih kendor ketua
+Label: 1 | AI Prob: 0.0089
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 473
+Text: ¤!| ΔŘᗯά𝐍ᗩ𝓣σ𝓽𝐎 |!¤ ampun ketua hahaha
+Label: 1 | AI Prob: 0.0043
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 476
+Text: ÄRWÄñÄ†Ö†Ö ketua undang lagi cewe cewe nya
+Label: 1 | AI Prob: 0.0018
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 477
+Text: A҉R҉W҉A҉N҉A҉T҉O҉T҉O҉   iya ketua ,resti dong undang lagi
+Label: 1 | AI Prob: 0.0591
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 478
+Text: ǟʀաǟռǟȶօȶօ jam berapa uploadnya ketua
+Label: 1 | AI Prob: 0.0127
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 479
+Text: ♜☆  aRŴ𝐚ή𝐚tσ丅Ⓞ  🎯🐟 mau ku tekel pala mu ketua
+Label: 1 | AI Prob: 0.0022
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 480
+Text: 🍌 ⋆ 🍇  🎀  𝒜𝑅𝒲𝒜𝒩𝒜𝒯♡𝒯💞  🎀  🍇 ⋆ 🍌 setrum lah dia itu hahaha
+Label: 1 | AI Prob: 0.0043
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 490
+Text: Kasih paham ketua seperti apa gacornya permainan ini 💯𝕊𝔸𝕁𝔸𝕂4𝔻💯
+Label: 1 | AI Prob: 0.0038
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 549
+Text: lu ga bosan ketua??main kog kalah mulu…sekali2 tolong buat kami bangga pada mu
+Label: 1 | AI Prob: 0.0153
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 572
+Text: col undang lucinta luna lah 👍​🇦​​🇷​​🇼​​🇦​​🇳​​🇦​​🇹​​🇴​​🇹​​🇴​👍
+Label: 1 | AI Prob: 0.2531
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 573
+Text: asek joget teruss 👍​🇦​​🇷​​🇼​​🇦​​🇳​​🇦​​🇹​​🇴​​🇹​​🇴​👍
+Label: 1 | AI Prob: 0.0559
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 574
+Text: col tolong lah undang resti​👍​🇦​​🇷​​🇼​​🇦​​🇳​​🇦​​🇹​​🇴​​🇹​​🇴​👍
+Label: 1 | AI Prob: 0.2438
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 575
+Text: resti enak sih kalo bintang tamu 👍​🇦​​🇷​​🇼​​🇦​​🇳​​🇦​​🇹​​🇴​​🇹​​🇴​👍
+Label: 1 | AI Prob: 0.1234
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 950
+Text: Udah basi udah banyak menganal1sis, gw klik video lu buat komen doang t0d wkwkwk. gw pake brave ga ada iklan juga
+Label: 1 | AI Prob: 0.0622
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 1348
+Text: MasyaAllah apapun menunya kalau kak Sulastri yg makan sy selalu ikutan laper.. Abaikan aja! 🤎𝐏𝐑𝐎𝐁𝐄𝐓 𝟖𝟓𝟓🤎
+Label: 1 | AI Prob: 0.2335
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 1478
+Text: Terus buat konten kaya gini bang. sangat bermanfaat! 𝗩𝗜𝗦𝗜𝟰𝗗
+Label: 1 | AI Prob: 0.2927
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 1494
+Text: dahlah 2jt😂
+Label: 1 | AI Prob: 0.1018
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2000
+Text: Tolong banting sampai mati kejang gw tf 2jt
+Label: 1 | AI Prob: 0.0173
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2139
+Text: Jangan main di evostoto
+Label: 1 | AI Prob: 0.1820
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2248
+Text: 𝑷𝑬𝑺𝑰𝑨𝑹88 pelunas utang gw cok WKWKWKWK
+Label: 1 | AI Prob: 0.0358
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2262
+Text: beres2 rumah sambil nyepin,, pas dengar suaranya behhhhhh garang kaliii suara petirnya hahaha,, makasih y  𝑷𝑬𝑺𝑰𝑨𝑹88
+Label: 1 | AI Prob: 0.0298
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2274
+Text: Link nya 𝑷𝑬𝑺𝑰𝑨𝑹88 apa boss? mau juga donk
+Label: 1 | AI Prob: 0.2319
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2279
+Text: Mumpung lagi gacornya gaskan aja bos  𝑷𝑬𝑺𝑰𝑨𝑹88
+Label: 1 | AI Prob: 0.2647
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2315
+Text: Yang lain habiskan waktu, kita hasilkan 𝗕𝗶𝗯𝗶𝘁𝟭𝟲𝟴 𝗕𝗼𝗹𝗮
+magesiti
+Label: 1 | AI Prob: 0.2309
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2335
+Text: Ada yang mau cerita hal lucu? Aku siap dengerin! Respek sama bibit169 yg punya itikad baik
+cohugiga
+Label: 1 | AI Prob: 0.0617
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2356
+Text: Anak2: kok main slot trus uang e dari mn
+Label: 1 | AI Prob: 0.2790
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2362
+Text: Komitmen mbak4d2 adalah menjaga pelanggan dan memberi banyak manfaat masyarakat indonesia !!
+Label: 1 | AI Prob: 0.2731
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2452
+Text: Diterusin takut kalah gk ditrus takutmenang bandar pastitau begittu habis kosong pasti dikeluarinslot
+Label: 1 | AI Prob: 0.0627
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2713
+Text: 𝐒𝐮𝐩𝐞𝐫 𝐛𝐚𝐠𝐮𝐬 🧿𝗞𝗔𝗡𝗚𝗝𝗣𝟬𝟱🧿
+Label: 1 | AI Prob: 0.0100
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2714
+Text: 𝐒𝐮𝐩𝐞𝐫 𝐛𝐚𝐠𝐮𝐬 ✨𝗞𝗔𝗡𝗚𝗝𝗣𝟬𝟱✨
+Label: 1 | AI Prob: 0.0100
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2823
+Text: နည်းလွန်းတယ် max winပေးရမာ😂
+Label: 1 | AI Prob: 0.1079
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 2969
+Text: Big win 💪💪💪💪💪🎉🎉🎉🎉🎉😮😮😮😮😮😮
+Label: 1 | AI Prob: 0.1521
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 3126
+Text: Sini temenin kita sebentar di D 🍩 Y A N T O T O, seru kok 🎉!
+Label: 1 | AI Prob: 0.1197
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 3129
+Text: Siapa yang pengen ngobrol ngalor-ngidul soal apa aja? Respek buat scbd88 berani selesaikan masalah
+rozavesa
+Label: 1 | AI Prob: 0.0154
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 3327
+Text: primbon178 mantapp tembusss
+Label: 1 | AI Prob: 0.0091
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 3389
+Text: Big win 💪💪💪💪🎉🎉🎉🎉😮😮😮😮😮
+Label: 1 | AI Prob: 0.1521
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 3437
+Text: 🍀🍀🍀🍀🍀🍀🍀🍀💰💰💰💰💰💰💰💰💰💰$pbritney88
+Label: 1 | AI Prob: 0.0054
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 3798
+Text: Big win🎉🎉🎉😮😮😮🎉🎉🎉❤❤❤❤❤❤😊😊
+Label: 1 | AI Prob: 0.1521
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 3810
+Text: Big win 💪💪💪💪🎉🎉🎉🎉🎉😮😮😮😮😮
+Label: 1 | AI Prob: 0.1521
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 4865
+Text: Masih di Arena tempur 🌜rekor-11🌛 ya bang ???
+Label: 1 | AI Prob: 0.2283
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 4946
+Text: 𝓼𝓲𝓪𝓶𝓹𝓻𝓸88✨💕
+Label: 1 | AI Prob: 0.0054
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 5437
+Text: Big win 💪💪💪💪🎉🎉🎉🎉🎉😮😮😮😮
+Label: 1 | AI Prob: 0.1521
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 5488
+Text: Big win 💪💪💪💪💪🎉🎉🎉🎉🎉🎉😮😮😮😮😮
+Label: 1 | AI Prob: 0.1521
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 5540
+Text: https://l.betboom.bet/hudsonbb
+Label: 1 | AI Prob: 0.0657
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 6935
+Text: Total kekayaan Otto Toto Sugiri tercatat sekitar US$12,3 miliar atau setara Rp204 triliun per 9 Oktober 2025, menjadikannya salah satu orang terkaya di Indonesia. Kekayaan ini sebagian besar berasal dari kepemilikan sahamnya di PT DCI Indonesia Tbk. Sementara itu, Toto Wolff, yang berprofesi di Formula 1, diperkirakan memiliki kekayaan bersih sekitar US$1,8 miliar atau sekitar Rp29,5 triliun.
+Label: 1 | AI Prob: 0.0001
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+ID: 7072
+Text: Kelas konten nya soalnya yang diundang adalah beliau 🔥✨>>>>>>>> VICTORIABET4D
+Label: 1 | AI Prob: 0.0039
+Reason: Low AI Confidence - Check if Regex is too broad
+--------------------------------------------------
+
+2. Labeled 1 but contains Anti-Gambling keywords: 88
+ID: 63
+Text: Jangan bilang gue gak kasih tahu ya... 𝐏𝐒𝐓𝐎𝐓𝐎𝟗𝟗 lagi rame banget! Isinya gak ngebosenin sama sekali!
+Label: 1 | AI Prob: 0.9914
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 66
+Text: Scroll sampe sini, berarti lo udah ditakdirkan buat buka 𝐏𝐒𝐓𝐎𝐓𝐎𝟗𝟗. Yuk, jangan dilawan takdirnya 😂
+Label: 1 | AI Prob: 0.9865
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 68
+Text: Gue gak nyuruh, tapi kalau lo penasaran... coba aja liat-liat 𝐏𝐒𝐓𝐎𝐓𝐎𝟗𝟗. Jangan salahin gue kalo lo jadi betah 😜
+Label: 1 | AI Prob: 0.9973
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 69
+Text: Udah banyak yang ngebahas, tapi baru dikit yang sadar… 𝐏𝐒𝐓𝐎𝐓𝐎𝟗𝟗 lagi ada ‘sesuatu’. Jangan ketinggalan!
+Label: 1 | AI Prob: 0.9364
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 80
+Text: Sumpah ini kece: MINI1221 halus, rapi, dan bikin deg-degan seru. Jangan lewatkan! 💫
+Label: 1 | AI Prob: 0.9802
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 133
+Text: Pak Jarwo diem aja udah bikin ketawa🤣
+
+++++++++++++++++++++++++
+
+Jangan lupa join di 乃ﾑｲ尺乇4り biar Kelen bisa ngerasain menang bermain di 乃ﾑｲ尺乇4り ya ges yaa
+Label: 1 | AI Prob: 0.9394
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 377
+Text: Ada yang bilang “jangan sampe ketinggalan 𝙋𝙐𝙇𝘼𝙐𝙒𝙄𝙉”, tapi ketinggalan dari apa dulu??
+Label: 1 | AI Prob: 0.9787
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 472
+Text: `•.,¸¸,.•´¯ 𝕒𝐑𝕨ά𝐍𝒶тσt𝐨 ¯`•.,¸¸,.•´ jangan kasih kendor ketua
+Label: 1 | AI Prob: 0.0089
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 1349
+Text: JARANG BANGET saya nemu channel nya seperti ini 🤎𝐏𝐑𝐎𝐁𝐄𝐓 𝟖𝟓𝟓🤎 dan jangan pernah lewatkan channel terbaru disini !!
+Label: 1 | AI Prob: 0.9411
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 1525
+Text: Pecinta🔥𝐕𝐈𝐒𝐈𝟒𝐃🏆jangan lupa join ya kawan
+Label: 1 | AI Prob: 0.7881
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2139
+Text: Jangan main di evostoto
+Label: 1 | AI Prob: 0.1820
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2376
+Text: Jangan ketinggalan! Event mbak4d2 spesial hanya hari ini!
+Label: 1 | AI Prob: 0.9681
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2390
+Text: Event mbak4d2 spesial dengan hadiah keren! Jangan lewatkan!
+Label: 1 | AI Prob: 0.9612
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2517
+Text: “Yang cari slot serius, bukan slot bohongan – MINI1221 tempatnya.”
+Label: 1 | AI Prob: 0.9803
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2556
+Text: Mbak4d2 peduli dengan kita ! jangan lupa daftar dan di coba sekarang
+Label: 1 | AI Prob: 0.9611
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2569
+Text: Jangan lupa sosok mbak4d2 sudah terbukti viral memberikan banyak bantuan rejeki di indonesia
+Label: 1 | AI Prob: 0.9393
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2578
+Text: Event eksklusif mbak4d2 menantimu! Jangan sampai ketinggalan
+Label: 1 | AI Prob: 0.8868
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 2582
+Text: Jangan main situs slot harta 138 WD nya ga di bayar
+Label: 1 | AI Prob: 0.9833
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 3023
+Text: Jangan minder, kamu punya kesempatan yang sama 𝗦𝗰𝗯𝗱𝟴𝟴 𝗕𝗼𝗻𝘂𝘀
+rawikune
+Label: 1 | AI Prob: 0.5140
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 16201
+Text: Jangan cuma nonton, waktunya ikutan main di 🌠 Ｄ Ｕ Ｏ Ｇ Ａ Ｍ Ｉ Ｎ Ｇ!👍 ♛
+Label: 1 | AI Prob: 0.9881
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 17399
+Text: Jangan ketinggalan! ☝ Keseruan udah mulai, yuk main di Ｄ Ｕ Ｏ Ｇ Ａ Ｍ Ｉ Ｎ Ｇ! 🎉
+Label: 1 | AI Prob: 0.9971
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 23321
+Text: keseruan di ➡️ ᴀʀᴡᴀɴᴀᴛᴏᴛᴏ 💹🔥 jangan ngeyel 🤩🤑
+Label: 1 | AI Prob: 0.8975
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 40673
+Text: SEMANGAT selalu bosku berkontennya jangan kasih kendor ngasih pola pola yang bagus gini, situs kami lagi ada MAIN GRATIS TOTAL loh ayo buruan langsung join aja ^
+Label: 1 | AI Prob: 0.9823
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 40674
+Text: SEMAKIN LANCAR usahanya untuk bosqu kasih paham gimana cara maxwin dengan trik pola polanya yang sangat jitu, info nih Web kita lagi ada event MAIN GRATIS DENGAN TOTAL hadiah 1JT ayo buruan jangan sampe ketinggalan eventnya bosqu@
+Label: 1 | AI Prob: 0.9605
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 40683
+Text: SEMAKIN LANCAR REZEKINYA, buat para slotter ada yang baru nih kalo situs kita ADA KOIN GRATIS. gimana? ayo join jangan sampe ketinggalan karena banyak bonus bonus juga. kasih paham bosqu buat konten konten pola gacornya ^
+Label: 1 | AI Prob: 0.6686
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 40684
+Text: BIG THANKS buat kontennya yang sudah menghibur semoga membantu para slotter bermain dengan enjoy di situs kita karena KITA LAGI BAGI BAGI CHIP pantengin terus ya bosqu gaskeun jangan sampe ketinggalan promo menariknya$
+Label: 1 | AI Prob: 0.8026
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 41002
+Text: Laguny membuka hatinya orang bagi pemain togel Ben sadar bahwa judi membuat sengsara bukan kemenangan tp kehancuran yg di dapat
+Label: 1 | AI Prob: 0.8053
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 41434
+Text: Intinya jangan pernah main togel ,ngeslot apalagi judol ..jangan pernah 
+
+
+
+Ga bakalan menang yang ada duit kalian bakalan habis 
+
+
+
+Tetangga gw punya toko yang udah punya 5 cabang habis semua karena kecanduan judol ,parah sih
+Label: 1 | AI Prob: 0.6798
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 41492
+Text: dulu masih nganggur sering nitip nomer sering dapet modal bbfs, tapi semenjak kerja angka patah terus dan sekarang udah jarang maen filing angka juga ga kaya dulu 😅 intinya main togel tuh jangan nafsu fokus 1 pasaran bawa 5angkat maen bbfs modal receh aja
+Label: 1 | AI Prob: 0.8724
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 42977
+Text: Mknya bg xin kalau lagi d atas jangan sombong roda itu berputar 77777777777777 😂😂😂
+Label: 1 | AI Prob: 0.0012
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 43128
+Text: Jangan sampai ketinggalan momen bareng 👑𝗔𝗟𝗘𝗫𝗜𝗦𝟭𝟳👑.
+Label: 1 | AI Prob: 0.9827
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 43137
+Text: Jangan down kalau belum bisa kayak 👑𝗔𝗟𝗘𝗫𝗜𝗦𝟭𝟳👑.
+Label: 1 | AI Prob: 0.9490
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 43245
+Text: Jangan down kalau belum bisa kayak ALEXIS1.7.
+Label: 1 | AI Prob: 0.9003
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 43264
+Text: Jangan lupa like, comment, share, dan subscribe **ALEXIS 1.7**!
+Label: 1 | AI Prob: 0.1863
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 43756
+Text: Jangan tunggu besok, hoki kamu bisa datang hari ini di Pulau777! ⏳
+Label: 1 | AI Prob: 0.9968
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 46480
+Text: Jangan Ragu Jangan Bimbang , Daftar sekarang di ⚡𝑷𝑶𝑺𝑶𝑻𝑶𝑻𝑶 ⚡
+Label: 1 | AI Prob: 0.9005
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 47827
+Text: Jangan sampai ketinggalan momen bareng **ALEXIS17**.
+Label: 1 | AI Prob: 0.9827
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 47828
+Text: Jangan sampai ketinggalan jejak langkah **ALEXIS17**.
+Label: 1 | AI Prob: 0.9141
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 47919
+Text: 🚀 Jangan lewatkan seru di Pulau777
+Label: 1 | AI Prob: 0.9843
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 47959
+Text: Jangan pernah takut menghadapi masa depan,🎱𝓟𝓡𝓞𝓑𝓔𝓣855🎱hadapi lalu perjuangkanlah masa depan itu bersama!💯
+Label: 1 | AI Prob: 0.4804
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 47963
+Text: Kontennya bermanfaat Sudah bang jangan pernah main-main dengan channel-channel dari,🎱𝓟𝓡𝓞𝓑𝓔𝓣855🎱selalu memuaskan boss!💯
+Label: 1 | AI Prob: 0.9992
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 48677
+Text: Ada yang fresh nih! KYT4D lagi bagi-bagi bonus besar buat pemain baru. Jangan sampai kelewatan! 😍
+Label: 1 | AI Prob: 0.9918
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 48756
+Text: Jangan ragu! 𝐃𝐄𝐍𝐘𝐔𝐓𝟔𝟗 gacor terus!
+Label: 1 | AI Prob: 0.9319
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 50297
+Text: 01:11 Jangan penasaran kalo gw beneran jepe di ga rud aho ki
+Label: 1 | AI Prob: 0.9822
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 51912
+Text: Kesuksesan dimulai dari satu langkah kecil. Jangan berhenti! Temukan motivasimu dan bergabung di 𝐆𝐀𝐌𝐀𝟔𝟗 . Dijamin pasti gokil dan hoki! ✨
+Label: 1 | AI Prob: 0.9972
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 51951
+Text: jangan kaget main di S❈U❈K❈A❈J❈P gampang banget coba aja sendiri ke S❈U❈K❈A❈J❈P
+Label: 1 | AI Prob: 0.9467
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 52623
+Text: lancer lancer rejekinya buat kalian jangan lupa 🅂🅄🄿🄴🅁🄼🄾🄽🄴🅈88
+Label: 1 | AI Prob: 0.4123
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 52767
+Text: gak kerasa bentar lagi hari raya , jadi jangan lupa juga untuk coba 𝒉𝒐𝒌𝒊777
+Label: 1 | AI Prob: 0.9508
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 52770
+Text: Memang terbaik ini 【H】【o】【k】【i】【7】【7】【7】 gak bohong gue mantab bang
+Label: 1 | AI Prob: 0.9904
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+ID: 52771
+Text: Semangat terus mang ngontennyaa jangan lupa selalu 【H】【o】【k】【i】【7】【7】【7】
+Label: 1 | AI Prob: 0.9811
+Reason: Contains Anti-Gambling keywords - Check if context is missed
+--------------------------------------------------
+
+
+[POTENTIAL FALSE NEGATIVES (Label 0 but suspicious)]
+====================================================
+
+1. High AI Confidence (>= 0.6) but Labeled 0 (Anti-Gambling Override Triggered): 10
+ID: 2096
+Text: Saya 100 ribu sehari kadang 200 ribu lebih...kalah full nyedot...menang besar depo lagi...kalah lagi...menang lagi. depo lagi😢😢😢😢muter bro.😮baru seminggu dah berhenti main, hati tentram tenang dan damai.mudah mudahan terus seummur hidup ...amiinn
+Label: 0 | AI Prob: 0.6834
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 2124
+Text: Saya korban slot deo habis2an puluhan juta rupiah saya di janjikan kemenangan oleh cs admin CAHAYATOTO di janjikan kemenangan tpi di hancurin terus menerus wahai pemerintah RI musnakan slot yng masuk di indonesia termasuk slot CAHAYATOTO
+Label: 0 | AI Prob: 0.6661
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 2133
+Text: Jangan pernah kalian main di situs Tiket200 karena itu situs penipuan.
+Label: 0 | AI Prob: 0.8134
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 2181
+Text: Dasar penipu saya sudah wd 2juta tapi belum dibayar
+Tolong orang orang yang pakai situs granat 88 jangan bermain kalian kenak tipu seperti saya 
+Mohon disebarkan ke sosmed🙏🙏🙏
+Label: 0 | AI Prob: 0.6248
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 2232
+Text: sebenernya kominfo udah blokir terus semua situs tapi situs itu bisa di bikin lagi lagi dan lagi, kuncinya adalah semua player /masyarakat harus stop bermain biar semua situs bangkrut gaada pemasukan
+Label: 0 | AI Prob: 0.6283
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 2641
+Text: Main judol slot itu alogaritma automatis nya jelas ada (auto nya setingan bandar bro), logikanya bagaimana dia mau mengontrol jutaan akun player secara personal satu per satu. Kemungkinan ada JP dadakan yaitu ajang promo bandar (dikasi jp per wilayah satu orang,biar menarik player lain) itu pun 1 banding 10rb. Yang jelas KTP orang yg baru mendaftar atas nama player yang memang belum pernah main judi dimanapun, maka pas bermain akan diberikan fase brainwashing(cuci otak). Putaran nya akan enak untung sedikit rugi jarang . Nah kalau udah kelar dicuci otak maka kamu bakal rasain gimana alogaritma nya berubah . Kamu cuma hanya dipancing2 aja . Dia akan baca cara kamu main ( dan menyesuaikan dengan rumus dia, emosi kamu pendek akal kamu, dll). Admin slot sama scamer itu 11:12,ilmunya menipu mana perduli kondisi kamu. Pengalaman saya terakir bermain ,saya ssering diberikan kalah yang panjang dengan jp yg sedikit , terakir sebelum saya berhenti total penasaran saya berubah jadi pembuktian .Udah pernah rasain depo 38 kali kalah terus ga wd wd , naik nya sdikit sekali bahkan kyk ga naik makannya saya ingin buktikan ini asli penipuan . Ga ada masuk akalnya lagi kata2 hoki dari para admin scamer itu , dulu bet 200 bonus kekalahan 2000perak bisa jadi maxwin. , sekarang sc bet 1000 isinya zonk dan SELALU. Kalah sampe 38 kali deposit itu udah diluar nalar , apa maksudnya kenapa harus bet besar dulu baru putaran bagus naik turun , kenapa bisa kalah 38x deposit  karna pake bet di rp1000 kebawah? Jadi kata hoki itu berubah jadi setingan lah. Gausah dendam sama admin slot , malah itu ilmu pelakaran mereka buat kalian main lagi. Mana tau rasa bersalah itu scamer(penipu)
+Label: 0 | AI Prob: 0.9780
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 2718
+Text: Gw awl iseng , alhasil candu menag dikit wd depo lg menang lagi wd lagi , alhasil wd gede supaya mennag gede , gw majn live casino pas selalu allin psti kalah, kdgn gw dpt king bisa2 ny bandar dpt king alhasil seri, dan kdgn beda s1 angka , gw dpt2 bandar 3 ,itu jadi adrenalin waduh dikit lagi, alhasil bukan nyari mennag lagi tp cari sensasi, krna pengen dapat dopamine itu , gw mikir ap ennang di kasih , dan pas depo gede sm allin kalah fixx menang itu di kasih , dulu gw jiji bgt bego bgt orgajn judol alhasil gw yag termasuk org itu, awl iseng padahal, jgn kalian iseng2 ntr jadi ketagihan, buat org yg baca ini yang pemain juga , udhlah stop aj pun klo menaang , g ush main lgi, emg gata tangan pengen main lagi ,talu stop itu awl kehancuran
+Label: 0 | AI Prob: 0.6287
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 40735
+Text: Wah kalau bisa begini tiap hari auto bangkrut nih bandar togel 😅
+Label: 0 | AI Prob: 0.6395
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 41502
+Text: Togel beda sama slot sih
+Kalo togel entah kenapa dapet terus sebulan bisa dpet 5 juta tapi tau sendiri lah yang setan di makan setan😂😂
+Label: 0 | AI Prob: 0.8482
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+ID: 46760
+Text: Jangan main di Timo4D, tipu-tipu!
+Label: 0 | AI Prob: 0.9501
+Reason: Anti-Gambling Override - Verify if it is really anti-gambling or just tactics
+--------------------------------------------------
+
+2. Near Miss (0.4 < AI < 0.6): 76
+ID: 1271
+Text: Keren banget bang, hasilnya gagah banget!!
+
+Keren banget abang ini
+Label: 0 | AI Prob: 0.4941
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 1788
+Text: ❤❤❤❤❤❤❤😢bener banget makku  dibela²in berdiri g tau berapa lama, nunggui aku sadar dari habis dibius pas oprasi secsar
+Label: 0 | AI Prob: 0.5410
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2164
+Text: Kk tutorin biar berhenti main slot gimana kk gua dah kecanduan gam mauk berhenti tiap bangun tidur main slot 😊
+Label: 0 | AI Prob: 0.4617
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2242
+Text: Situs di blok ada uang di buka lagi 😂 rahasia umum
+Label: 0 | AI Prob: 0.5720
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2324
+Text: Main rungkad trus tiap hari 400k
+Label: 0 | AI Prob: 0.4002
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2331
+Text: Alhamdulillah saya sudah 4bulan berhenti main judol!!! Udh cape banget sampe2 semua nya habis motor udh gada uang gaji pun habis nya kesitu semua!!! Dulu susah mau berhenti krna ingin balik modal setengah nya pun gpp, yg ada malah nambah dalem sekali ny dapet pun bakal di main in lagi krna ngerasa kurang..
+Label: 0 | AI Prob: 0.4031
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2401
+Text: gw di ajarin kakek ku maxwin tiap hari 😊
+Label: 0 | AI Prob: 0.4539
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2423
+Text: Sekali maxswin bilang jp jp jp, pala kou modal aj blm balik, maxswin 17 jeti 
+tapi rungkad nya seharga mobil kontener cok😂
+Label: 0 | AI Prob: 0.4381
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2639
+Text: Di tempat saya. Ini nama nya penipuan. Bukan slot. Game penguras harta.
+Label: 0 | AI Prob: 0.4118
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 2712
+Text: jangan suruh berhenti .semua situs harus dimusnahkan..sampe saat ini belom ada tindakan pemblokiran situs slot
+Label: 0 | AI Prob: 0.4844
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 4156
+Text: Main judi online gak menang. Eh malah uang yg mulai habis. Hidup susah akherat juga 🗿🗿
+Label: 0 | AI Prob: 0.5046
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 6527
+Text: dlu lihat video klip nya ngerasa keren banget konsepnya, bahkan sampai sekarang sih.
+Label: 0 | AI Prob: 0.5886
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 6962
+Text: “Sukses yang besar itu, bisa membantu dan berguna buat orang lain. Hal seperti itu jadi pedoman saya untuk bikin bisnis sendiri. Saya enggak punya cita-cita banyak uang soalnya, saya sudah happy dengan kerjaan saya, dan motivasi saya besar banget bikin (produk) software dengan tujuan itu,” jelasnya.
+
+-Dari interview Kompas Otto Sugiri tahun 2023.
+
+Ini kata beliau yang kekayaannya di atas 100 triliun. Ada yg perlu kita pelajari dari sini. Attitude nya gitu tp malah lebih kaya berlipat-lipat ganda daripada yg pengen kaya.
+Label: 0 | AI Prob: 0.4634
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 6984
+Text: Di dunia saham, yang membedakan pemenang dan penonton adalah siapa yang berani percaya sebelum grafiknya bicara. Mencari “the next DCII” bukan sekadar ikut arus, tapi memahami arah, membaca tanda, dan menghargai proses ketika pasar masih ragu. Saat banyak menunggu kepastian, investor sejati sudah menanam keyakinan. Karena di balik setiap lonjakan besar, selalu ada keberanian, analisis, dan kesabaran yang berjalan berdampingan. Pasar bisa berisik, sentimen bisa berubah, tapi peluang besar hanya datang untuk yang siap melihatnya lebih dulu.
+Label: 0 | AI Prob: 0.4259
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 12310
+Text: Bang aci coba main game minecraft bikin partnya juga ya auto 100,100BM subcribes
+Label: 0 | AI Prob: 0.4966
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 13367
+Text: Wow akhirnya di mainkan juga thanks bro.. sukses selalu. Amiin
+Label: 0 | AI Prob: 0.5199
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 15525
+Text: Wow sangat ramai sungguh menyenangkan 
+Suana meriah bonus besar luar biasa🎉🎉🎉🎉
+Label: 0 | AI Prob: 0.5559
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 16940
+Text: Saad Ibn Abdelaziz Ibn Ali Ismael Shik Shak Shok Balla Thein Shawarma Walad Bebsi Zyadeh Batata Bdoon Salata Ma3 Ganeenet Bebsi Bardeh Bdoon Thalj Wallak Hamodeh E6fi
+
+El Playstation A7san Ma Akaserha Sala Rassak Hassa TO Roo7 Engale3 Jahez 7allak Lal Nom Mohammad Abdallah
+Label: 0 | AI Prob: 0.4652
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 18239
+Text: mantap Jackpot. sukses selalu
+Label: 0 | AI Prob: 0.4585
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 18799
+Text: ມິຕິໃຫມ່ເລີຍ ຂອງ 4EVE ເພລງຈັງຫວະມ່ວນ ຜ້ຟັງໄຫລໄປຕາມເພງ ແລະ ເນື້ອຮ້ອງ ເຂົ້າກັບ Mood ທີ່ໃຫ້ຄິດຮອດ ເພງທຳອິດຂອງວົງ ແຕ່ເຫນືອກວ່າ ແລະ ສູງຂື້ນໄປເລີຍໆ. ຄະແນນ ເອົາເລີຍ 100/100 ບໍ່ໄດ້ລຳອຽງ ແຕ່ບອກເລີຍວ່າ 4EVE ຄື The Best T PoP.
+A.D.A.M apple 🍎  ຕອນສຸດທ້າຍ. ເພງຕໍ່ໄປ ຄິດວ່າ ຈະກ່ຽວກບ ອະດຳ ກັບ ອິຟ (4EVE) ທັງ 7 ຄົນ ທີ່ມີບຸນພະລາ ຕ້ອງມາພົບກັບ ADAM ແລ້ວ EVE ແລະ ADAM ໄດ້ພາກັນໄປກີນ ຫມາກໄມ້ແຫ່ງສະຫວັນ ທີ່ເປັນຫມາກໄມ້ຕ້ອງຫ້າມ. ຄິດໄປໄກແລ້ວນີ້ ຢາກຟັງເພງຕໍ່ໄປແລ້ວ ແຕ່ກ່ອນອື້ນ ເພງທັງຫມົດຂອງ 4EVE ໃຫ້ຈຸໃຈກ່ອນ. ເພງໃຫມ່ມາ ເທືອໃດປັງເທືອນັ້ນ.
+Label: 0 | AI Prob: 0.5483
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 20768
+Text: A- Aayat
+B- Binte dil
+C- Channa Mereya
+D- Desh mere
+E- Enna sona 
+F- First class
+G- Gerua
+H- Hawayein
+I- Ishq mubarak
+J- Jaan nisar
+K- Khaamoshiyaan
+L- Laal ishq
+M- Muskurane
+N- Naina
+O- O sathi
+P- Pal pal dil k pass
+Q- Qaafirana
+R- Roke na ruke naina
+S- Shayad
+T- Tum hi ho 
+U- Uska hu uska hi bnana
+V- Ve mahi
+W- Wafa ne wafai
+Y- Yaad hai na
+Z- Zalima
+Label: 0 | AI Prob: 0.5362
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 21360
+Text: Asik banyak dapet hadiah a ifal
+Label: 0 | AI Prob: 0.4681
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 26255
+Text: Pernah punya gacor banget... Sorene  gacor... Pagine malah mati
+Label: 0 | AI Prob: 0.5393
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 28719
+Text: Setiap detik dalam video ini punya arti sendiri…
+Tulis di komentar, bagian mana yang paling menyentuh kamu 💬
+by #Listrik69
+Label: 0 | AI Prob: 0.5371
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 31183
+Text: slot memang menjanjikan kemenangan
+Label: 0 | AI Prob: 0.5672
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 31878
+Text: Udh paling benar di makan biar gd yang maen slot
+Label: 0 | AI Prob: 0.4311
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 32538
+Text: Gak dendam pun hasil tetap sama karena hasil ramalannya berbicara demikian. Motifnya kurasa Gak hanya dendam tapi juga ingin menguasai
+Label: 0 | AI Prob: 0.5663
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 34263
+Text: Plese tolong gue bwt modal hidup, kasih modal buat usaha.. InsyaAllah.. Amin.
+Label: 0 | AI Prob: 0.5349
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 40490
+Text: Salam kenalan mas NANTO .! Saya mas SUGIMAN dml SRAGEN aka  memberi masalah pengalaman togel main judi ! Dulu mas pernah menang angka togel 4angka dengan cara jalangkong ! Wae hasilnh ! Tapi uang nya tak berguna cepat habis ! Hibarat kubelikan motor cepat rusak dan kujual ! Kubeli kan emas ! Di pinnam orang dak dibaliki /petnah yg balik seperti kalong /rusak putus kalongnya ! Ya ku jual lagi ! Ya gak jadi barang habis tampa sebab ada2 wae ! Pernah ku berikan hewan ! Di pijam kakak dak balik ! Wes sampae habis tak ada yg ketinggalan ! Amin ! Uang dari hasil jiem di makan setan ! Sampai srkarang cari uang susah ! Kena himbasnya!/karma nya !❤😊❤😂
+Label: 0 | AI Prob: 0.4374
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 40794
+Text: Punya pengalaman yg seperti ini ....berhentinya hanya di kasih tahu kalo menang itu rejeki anak cucu ...deggg jd ngeri ...itu bener nggak tp aku langsung berhenti
+Label: 0 | AI Prob: 0.5080
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 41088
+Text: [REFF 1]
+bandar togel! bandar togel! kamu gagal bikin mati saya 
+kamu kamu sebenernya... bandar togel! bandar togel!
+kamu menghancurkan hidup saya, kamu kamu sebenarnya bandar togel!
+
+[VERSE 1]
+saya tau nama kamu: kusnan, kusnanu, fungpu, subur
+alias vicky prasetyo
+kamu kaya dari mana, dari mana, dari mana?
+aku... bergerak di legal consultant pertambangan minyak bumi
+kamu nipu? gapernah... kamu nipu? gapernah...
+sumpah pocong? [vicky diem]
+kamu takut ya? takut ya? LIAT MUKA SAYA!!!!!!!!
+
+[REFF 2]
+bandar togel! bandar togel! kamu gagal bikin mati saya 
+aku aku sebenernya... bandar togel! bandar togel!
+kamu menghancurkan hidup saya, kamu kamu sebenarnya bandar togel!
+
+29 my age ya... 29 my age ya... my age ya... my age ya
+
+[VERSE 2]
+kamu kira saya pernah datang ke rumah kamu
+mau ngapain? mau ngapain?
+menjadi bidadari saya, bidadari saya
+setiap hari mengisi hari-hari saya
+kamu muja? ga pernah.. kamu muja? gapernah..
+sumpah pocong?
+silahkan minta bantuan ke pasukan kamu
+SUDAH TIDAK ADA, TIDAK ADA
+LIHAT MUKA SAYA!!!!!!!!!!!!!!
+
+[REFF 3]
+bandar togel! (aku sangat bangga)
+bandar togel! (aku sangat bangga)
+itu dedikasi apresiasi aja
+kamu kamu sebenernya... 
+bandar togel! (aku sangat bangga)
+bandar togel! (aku sangat bangga)
+aku pusing, aku pusing!
+kamu kamu sebenarnya bandar togel!
+
+togel! togel! tototototogel
+aku pusing, aku pusing!
+kamu kamu sebenernya... 
+bandar togel! (aku sangat bangga)
+bandar togel! (aku sangat bangga)
+thanks for everything~
+
+kamu kamu, kamu nipu
+tapi aku bangga, aku sangat bangga
+dan aku sebenarnya........... BANDAR TOGEL
+Label: 0 | AI Prob: 0.4924
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 41438
+Text: Togel sekarang gampang , nge rumus , Ayah saya sering menang gak main main menangnya ratusan juta sampai kebeli tanah , sampai dikira orang pesugihan tapi ya gitu namanya duit SETAN , cepet banget habisnya mobil sering rusak , harga taneman makin turun😂 , dan banyak orang ngedekat hanya ingin ditraktir aja
+Label: 0 | AI Prob: 0.4309
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 41538
+Text: Langsung di sambut situs judol di komentar
+Label: 0 | AI Prob: 0.4931
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 42111
+Text: Setan dangkalan lo, Lama beneeerrr. Maandang atuuh deen. 😑 
+
+Lancar & sukses selalu untuk Deni Creator, terus berkarya! 👋
+Label: 0 | AI Prob: 0.5136
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 42531
+Text: Wow, ini sih top! 🔥ISTANABET 𝟏𝟕🔥, penyampaian yang asik dan isi yang berbobot bikin video ini juara!
+Label: 0 | AI Prob: 0.4382
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 43975
+Text: Setahu gue difisi lain juga lokal cuma 1 PB doang itu pun dah karatan juga😂😂😂..
+Label: 0 | AI Prob: 0.4198
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 46757
+Text: eh gua tuh,eh gua tuh,eh gua tuh..TAEEEKKK
+Label: 0 | AI Prob: 0.5937
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 47371
+Text: Wah mantap kali gas terus sampai menang
+Label: 0 | AI Prob: 0.4341
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 49514
+Text: Bener tuh, masa pro player main taptap doang gak ngeliat targetnya mana yang harus di hit 😢
+Label: 0 | AI Prob: 0.5477
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 51396
+Text: Haya stenly emang ga ada obat panutan emang w jadi user haya karena sering liat dia main haya
+Label: 0 | AI Prob: 0.4770
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 51809
+Text: Iphone tuh malesnya selalu muncul pop up notification low battery, dan itu ngeganggu banget buat main game
+Label: 0 | AI Prob: 0.5281
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 52422
+Text: Parah parah 😂😂
+Label: 0 | AI Prob: 0.4187
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 52857
+Text: Sukses terus coll.. terbaik
+Label: 0 | AI Prob: 0.4687
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 53614
+Text: 𝐀‍‌𝐗⁠𝐋‍​𝟕⁠​𝟕‌​𝟕adalah platform yang terus berkembang dan berinovasi.
+Label: 0 | AI Prob: 0.5097
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 54253
+Text: Aku cari cari videonya baru ketemu
+Aku g mau nonton di chanel lain
+Label: 0 | AI Prob: 0.4506
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 54344
+Text: 06.20  KÚRÄWÄ GÄMÌñG selalu di hati emang
+Label: 0 | AI Prob: 0.5274
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 54398
+Text: Lagi viral, menangin jackpot di 퐀퐋퐄퐗퐈퐒17 pecah banget!  
+Label: 0 | AI Prob: 0.4097
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 54455
+Text: Emang sih, 푨푳푬푿푰푺⭐17 tuh beda dari yang lain.
+Label: 0 | AI Prob: 0.5028
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 54593
+Text: Hahaha polda cari kesempatan meraup cuan
+Label: 0 | AI Prob: 0.4174
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+ID: 54796
+Text: 𝐖𝐄𝐓0𝐍88 mantap jiwa buat yang mau main tanpa ribet 💥🔥
+Label: 0 | AI Prob: 0.5050
+Reason: Near Miss - Check if Regex missed a pattern
+--------------------------------------------------
+
+3. Labeled 0 but contains Gambling keywords: 1236
+ID: 32
+Text: " Halo teman-teman, saya ingin berbagi pengalaman terkait platform investasi dan copy trading."
+Awalnya saya dipandu oleh beberapa orang dari Akademi Crypto ( AC ) Tangerang, mulai situs dan depositonya.
+Tentu dengan janji2 keuntungan yang signifikan.
+1.TRAXEARN. ( Sekarang situsnya menghilangkan jejak )
+Saat penarikan, saya tidak bisa menarik deposit dan profitnya sampai sekarang.
+2. BIPTRADE   ( Sekarang situsnya menghilangkan jejak termasuk WAnya ).
+ Saat penarikan, saya tidak bisa menarik deposit dan profitnya sampai sekarang.
+3. MIRROR  EDGE TRADING
+  Dimana penarikan dana dijanjikan akan dibayar dengan Bitcoin ( BTC ).
+Namun saat penarikan dana justru dilempar kepihak ketiga lewat dompet Coinbase web3,
+tapi dalam bentuk token Thoreum V3 ( bukan BTC ).
+Untuk Swap ke Btc saya harus bayar ribuan USD, inipun tidak ada jaminan.
+Semua bukti transaksi dan komunikasi sudah saya simpan. Inilah salah satu sisi gelap beberapa orang dari Akademi Crypto ini.
+Tidak ada yang menyangka orang2 tsb. telah mempertaruhkan reputasi dirinya dan Akademinya.
+Tujuan saya memberi edukasi agar teman2 lebih hati-hati terhadap penipuan investasi yang menjanjikan imbal 
+hasil tinggi tanpa transparansi.
+Label: 0 | AI Prob: 0.1055
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 765
+Text: Woy tod apalah toko lo itu ga ada wdp
+Label: 0 | AI Prob: 0.0009
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 1077
+Text: Iya bang udah GG onic,AE hoki doank 😂
+Label: 0 | AI Prob: 0.0002
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 1410
+Text: Daerah Depok workshop kyk gini dimana ya...?
+Label: 0 | AI Prob: 0.0011
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2065
+Text: Harusnya ada pemblokiran yang buat iklan slot.
+Label: 0 | AI Prob: 0.0272
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2074
+Text: Percuma blokir situs.
+Gw devops programmer, ngeganti URL itu semudah kamu ngeganti nama file.
+Seharusnya yang diblokir itu rekening bank nya, yang biasa dipake sama mereka untuk deposit uang.
+Nanti kan ketahuan tuh KTP mana yang sering buka-tutup rekening, kita ciduk deh.
+
+Gmn sih wkwk.
+Label: 0 | AI Prob: 0.0082
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2096
+Text: Saya 100 ribu sehari kadang 200 ribu lebih...kalah full nyedot...menang besar depo lagi...kalah lagi...menang lagi. depo lagi😢😢😢😢muter bro.😮baru seminggu dah berhenti main, hati tentram tenang dan damai.mudah mudahan terus seummur hidup ...amiinn
+Label: 0 | AI Prob: 0.6834
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2101
+Text: Kebanyakan bandar slot itu adalah anjing
+Label: 0 | AI Prob: 0.0024
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2114
+Text: sebenarnya mudah nemuin bandar slot, cuman tau lh wkwk kayak anak zaman sekarang umur 15 tahun bisa tau bandar narkob* masa polisi ga tau😂 intinya duit aja
+Label: 0 | AI Prob: 0.0001
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2121
+Text: Udah miskin main slot,tambah miskin kita.jauhi slot,percuma kl cuma main receh ga bakalan menang.mending buat mkn enak uang nya.
+Label: 0 | AI Prob: 0.0955
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2122
+Text: Titus gacor tahi itu sanjing di YouTube gacor 77 ni anjing
+Label: 0 | AI Prob: 0.0185
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2124
+Text: Saya korban slot deo habis2an puluhan juta rupiah saya di janjikan kemenangan oleh cs admin CAHAYATOTO di janjikan kemenangan tpi di hancurin terus menerus wahai pemerintah RI musnakan slot yng masuk di indonesia termasuk slot CAHAYATOTO
+Label: 0 | AI Prob: 0.6661
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2131
+Text: Tangkap bandar slot biar anak negri tidak kecanduan
+Label: 0 | AI Prob: 0.0024
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2135
+Text: Tahun 2022 sekitar bulan 10/11 saya pernah dagang durian montong/bangkok  di kalteng lebih tepat nya waktu itu di pangkalan bun di daerah sekitar bundaran pancasila, jadi waktu itu ada 3 bocil smp beli dagangan saya makan di tempat. Belinya bisa di bilang cukup banyak buat seumuran bocil tersebut, mereka (3bocil) beli 2 buah durian dengan total berat hampir 8 kilo pokoknya (fyi biasanya durian montong itu jual nya perkilo jrg ada yg jual perbuah, waktu itu saya jual dengan harga 85.000rb perkilo) iseng lah saya tanya karena pemasaran anak sekecil itu kok banyak banget pegang uang? "Banyak banget dek uang mu , bpkmu kaya kah? 2 org temen yg di bayarin makan ini nyeletuk ngomong " ITU HABIS DI KASIH JP OM SAMA KAKEK? " Dalem hati saya antara lucu dan yang paling besar tentu aja sedih!?
+Label: 0 | AI Prob: 0.0023
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2152
+Text: Situsnya nya bodong alias Abal Abal saya punya bukti nya deposit kemenangan mau WD live chat mlh ditutup obrolan terkeluar mau masuk lg malah dibaned akun saya penipu
+Label: 0 | AI Prob: 0.0204
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2154
+Text: Ini baru slot sabu aja udah biasa aja di indo😂😂😂
+Label: 0 | AI Prob: 0.0236
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2164
+Text: Kk tutorin biar berhenti main slot gimana kk gua dah kecanduan gam mauk berhenti tiap bangun tidur main slot 😊
+Label: 0 | AI Prob: 0.4617
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2170
+Text: aku main supersus ada iklan judi slot, nah aku benci benget sama judi slot, soalnya paman ku korban judi slot dan dia jadi ODGJ, udah aku laporkan ke polisi kalo di game supersus ada iklan judi slot dan kebanyakan yang main game supersus itu anak anak dan remaja 20 tahun ke bawah, aku juga umur 15 tahun
+Label: 0 | AI Prob: 0.0037
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2175
+Text: Sebarin aja nama/ foto sama alamat orang2 yg kerja jd admin slot....
+Label: 0 | AI Prob: 0.0022
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2176
+Text: Klau gak mau penduduk negara jdi pencinta gampanggggg. Masa boduh amat pemerintah. Enternit d seluruh indonesia d totop kan mudah. Klu gak mengikuti perkembangan jaman. Gak usah buat teknologi
+Label: 0 | AI Prob: 0.0017
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2181
+Text: Dasar penipu saya sudah wd 2juta tapi belum dibayar
+Tolong orang orang yang pakai situs granat 88 jangan bermain kalian kenak tipu seperti saya 
+Mohon disebarkan ke sosmed🙏🙏🙏
+Label: 0 | AI Prob: 0.6248
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2183
+Text: Biar kelihatan kerja situsnya diblokir, kalo serius basmi slot, sangat gampang tinggal blokir rekeningnya, disitusnya kan ada rekeningnya
+Label: 0 | AI Prob: 0.0004
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2186
+Text: Dan para admin slot kalau promosi pake seragam ojol
+Label: 0 | AI Prob: 0.0023
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2188
+Text: Judi slot bikin untung bandar
+Label: 0 | AI Prob: 0.0357
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2195
+Text: Judi Slot di blokir, Growtopia isinya banyak penjudi tapi ketutupan sama player lainnya
+Label: 0 | AI Prob: 0.0132
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2211
+Text: Gw yg tiap bulan depo 50% dari gaji😢😢.
+Label: 0 | AI Prob: 0.0241
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2220
+Text: kalo serius berantas judol tinggal laporin dan blokir aja norek tujuan deposit, biar pusing tuh bandar gonta ganti norek, sayangnya pemerintah merestui uang rakyatnya dirampok 😂😂😂😂😂
+Label: 0 | AI Prob: 0.0002
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2222
+Text: Korban??
+Hah?
+Korban judi slot?
+Korban???
+Label: 0 | AI Prob: 0.0003
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2224
+Text: Boong ngentot Kominfo blokir situs judol.. tetep aja nanti di buka lagi dengan sogokan yg punya slot.. wa aja kadang² suka masuk dari marketing judol.. klo emang niat mau nyari pelaku utamanya sih ya bisa² aja.. tapi tetep mereka yg di atas cuma mikirin perut sendiri tanpa mikir impactnya tuh seperti apa ke tiap² keluarga yg kena scame judol ini
+Label: 0 | AI Prob: 0.0031
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2228
+Text: Yang udah habis habisan/kalah besar/kecil, stop tolong jangan sampai berharap duit yang habis  itu kembali dengan melakukan deposit/topup lagi, karena semua itu percuma, karena saya sudah membuktikan ,saya udah liat temen saya sebulan habis 47juta, bulan2 sebelumnya itu 20juta keatas mulai dari januari sampai sekarang, mending stop, anggplah duit itu hilang dan jadikan pelajaran ,lebih baik mengulang dari 0 ,belajar mengisi waktu dengan aktifitas yang lebih bermanfaat untuk diri sendiri ataupun oranglain. Salam sehat
+Label: 0 | AI Prob: 0.0101
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2233
+Text: Sarat berhenti judi slot cuma 1 ..
+Yaitu !!! Solat 5 waktu jangan telat
+Label: 0 | AI Prob: 0.0070
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2235
+Text: kayanya ga beres² ini masalah.
+
+Kalo ga mampu hajar bandar, udahlah bikin syarat minimal deposito 200.000.000 
+jadi semacam buat tempat khusus aja, 
+
+kadang bingung dilarang udah masih ada aja yg main.
+
+semacam di kontrol gitu lah kalo mau. Jengkel beut, yg ngutang ke saya buat a b c, eh taunya malah dipake judi memang bangsat. Nagihnya susah
+Label: 0 | AI Prob: 0.0071
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2238
+Text: sebulan apanya . sehari abis 5 jt anjing emng maen slot gw udh bner2 tobat
+Label: 0 | AI Prob: 0.0153
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2253
+Text: Tidak serius pemerintah memberantas slot
+Label: 0 | AI Prob: 0.0045
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2291
+Text: Ni dengar yg blm main jgn main awal coba2 iseng2 lambat laun bs gila... gw apa aja gw jual buat depo.. motor rumah sertifikat emas segala macam dah.. apa aja gw jadiin duit buat depo alhasil skrang utang selenar penjuru
+Label: 0 | AI Prob: 0.0000
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2292
+Text: Hapus judi slot di seluruh indonesia ini..krn judi slot sekarang..cmn sedotin depo org yg bermain..
+Label: 0 | AI Prob: 0.0080
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2312
+Text: Gw semalam dapat 6,4 di 1 minggu 9jt , gw baru main baru ada 2 bulan belom rugi" Paling depo 59 rb 😂
+Label: 0 | AI Prob: 0.0256
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2323
+Text: Gua gak pernah kecanduan judi slot. Karena gua user judi gacha 🤣
+Jadi udah tau betapa buruknya sistem beginian. Apalagi 100% settingan. Wonh gacha yg udah jelas ratenya aja masih ampas😅
+Label: 0 | AI Prob: 0.0025
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2326
+Text: Semoga hokinya ketularan ya Allah aamiin
+Label: 0 | AI Prob: 0.0043
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2336
+Text: Gblok sih berpikir bisa ngatasin judi slot dengan nutup situs nya😂
+Harus nya admin² slot yg ditangkepin
+Label: 0 | AI Prob: 0.1171
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2345
+Text: tolong buat pemerintah brantas habis situs² slot ini bisa jadi perusak khidupan rakyat² dan anak² bangsa yg bisa merusak otak dan mental
+Label: 0 | AI Prob: 0.0010
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2349
+Text: Tapi kak, driver OJOL kan mitra, kenapa minta THR ??? apa untuk DEPO SLOT ???? BERARTI MEREKA SAMPAH TERBURUK DARI SAMPAH YANG PERNAH ADA...
+Label: 0 | AI Prob: 0.0074
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2401
+Text: gw di ajarin kakek ku maxwin tiap hari 😊
+Label: 0 | AI Prob: 0.4539
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2402
+Text: Ayuu para hekerss gimanah nihh blokk data2 slott yang beredar di Indonesia walaw negara tidak bisa membayar muu amal mu terus mengalir sampe ahirr jaman slamat kan manusia di negara inihh
+Label: 0 | AI Prob: 0.0215
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2405
+Text: ta critani wahai para pecandu judol. judol itu bukan judi ya, tapi scammer. percuma lu mau depo berapapun tetep yang menang itu bandar. gw udah pernah akalin tuh situs slot slot judol secara fair play soalnya sudah paham pola dari scammer itu seperti apa, hasilnya selalu menang diatas 5 juta bahkan nyampe 11 juta lebih, iya kalau nominal nominal yang saya sebutkan bisa ditarik saya nggak bakal ngomong gini. ICON PENARIKANNYA AJA YANG DIHILANGIN!!! Gimana bisa narik? Disuruh depo lagi, Sorry gw udah paham pola scammer!!! Gw depo buat vip terendah yang terjangkau, yang penarikan hariannya dibatasi dan kalau udah balik modal, menangin yang banyak biar tinggal narik narik aja tiap harinya yang dibatasi, kalau bisa lebih dari 5 kali nariknya berarti bisa jadi itu fairplay alias jujur bandarnya tapi nggak ada yang namanya bandar itu jujur, pasti ada aja alibinya
+Label: 0 | AI Prob: 0.0353
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2423
+Text: Sekali maxswin bilang jp jp jp, pala kou modal aj blm balik, maxswin 17 jeti 
+tapi rungkad nya seharga mobil kontener cok😂
+Label: 0 | AI Prob: 0.4381
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2424
+Text: TPI KLO sya MH maen slot ga prnah ngarepin mnang karna cuma untuk iseng2 aja ngobatin rasa cape dan stres.
+ Anggap aja jajan maen PS Kya waktu kcil.
+ Toh sya MH KLO depo jga pling gede 10 rbu doang
+Label: 0 | AI Prob: 0.0139
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2429
+Text: Apalagi slot kpkgg jangan perna di daptar itu akun penipu
+Label: 0 | AI Prob: 0.0137
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2430
+Text: Depo sendiri main sendiri Menang saldo sendiri kalah ya sudah pasti dong❤❤❤❤❤❤
+Label: 0 | AI Prob: 0.3696
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------
+ID: 2439
+Text: intinya kalau mau main judi.. jangan yang slot, kalau mau main, ya main kartu aja.. kaya poker, qiu qiu dll.. karna yang ada lawan masih palyer.. berbeda dengan slot yang lawannya sama bandar, ya kali bandar mau ngasi lu duit buat cuma-cuma😂
+Label: 0 | AI Prob: 0.0675
+Reason: Keyword Match - Check if valid usage or missed pattern
+--------------------------------------------------

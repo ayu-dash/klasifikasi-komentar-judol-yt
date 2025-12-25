@@ -1,0 +1,56 @@
+2025-12-25 14:24:55.534352: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-25 14:24:56.396991: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-25 14:24:59.474573: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/keras/src/export/tf2onnx_lib.py:8: FutureWarning: In the future `np.object` will be defined as the corresponding NumPy scalar.
+  if not hasattr(np, "object"):
+--- 1. LOADING DATA ---
+Total rows: 121758
+Initial count: 121758
+Removed 42462 duplicates.
+Count after deduplication: 79296
+
+--- 2. INITIAL REGEX LABELING (WEAK) ---
+Running regex classification...
+  0%|          | 0/79296 [00:00<?, ?it/s]  0%|          | 80/79296 [00:00<01:39, 794.75it/s]  0%|          | 196/79296 [00:00<01:18, 1006.92it/s]  0%|          | 329/79296 [00:00<01:08, 1153.98it/s]  1%|          | 445/79296 [00:00<01:09, 1135.04it/s]  1%|          | 568/79296 [00:00<01:07, 1166.97it/s]  1%|          | 685/79296 [00:00<01:14, 1054.06it/s]  1%|          | 793/79296 [00:00<01:17, 1015.05it/s]  1%|          | 896/79296 [00:00<01:36, 810.84it/s]   1%|▏         | 1001/79296 [00:01<01:30, 868.96it/s]  1%|▏         | 1127/79296 [00:01<01:23, 935.92it/s]  2%|▏         | 1226/79296 [00:01<01:22, 942.09it/s]  2%|▏         | 1315/79296 [00:01<01:21, 962.69it/s]
+Traceback (most recent call last):
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/src/master_labeling.py", line 835, in <module>
+    run_pipeline()
+    ~~~~~~~~~~~~^^
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/src/master_labeling.py", line 710, in run_pipeline
+    df['weak_label'] = df['comment_text'].progress_apply(classify)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/tqdm/std.py", line 917, in inner
+    return getattr(df, df_function)(wrapper, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/pandas/core/series.py", line 4943, in apply
+    ).apply()
+      ~~~~~^^
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/pandas/core/apply.py", line 1422, in apply
+    return self.apply_standard()
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/pandas/core/apply.py", line 1502, in apply_standard
+    mapped = obj._map_values(
+        mapper=curried, na_action=action, convert=self.convert_dtype
+    )
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/pandas/core/base.py", line 925, in _map_values
+    return algorithms.map_array(arr, mapper, na_action=na_action, convert=convert)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/pandas/core/algorithms.py", line 1743, in map_array
+    return lib.map_infer(values, mapper, convert=convert)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/lib.pyx", line 2999, in pandas._libs.lib.map_infer
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/venv/lib/python3.13/site-packages/tqdm/std.py", line 912, in wrapper
+    return func(*args, **kwargs)
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/src/master_labeling.py", line 542, in classify
+    if has_site_pattern(text): score += 3  # Nama situs judol adalah indikator kuat
+       ~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/src/master_labeling.py", line 317, in has_site_pattern
+    return any(re.search(p, t, re.IGNORECASE) for p in patterns)
+  File "/home/wtf/Documents/kuliah/kuliah-semester-5/Machine Learning/Tugas Deteksi Komen Judol/src/master_labeling.py", line 317, in <genexpr>
+    return any(re.search(p, t, re.IGNORECASE) for p in patterns)
+               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/re/__init__.py", line 177, in search
+    return _compile(pattern, flags).search(string)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyboardInterrupt

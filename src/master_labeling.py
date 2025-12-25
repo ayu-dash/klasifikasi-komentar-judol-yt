@@ -132,6 +132,38 @@ def build_unicode_map():
     for i, c in enumerate('abcdefghijklmnopqrstuvwxyz'):
         mapping[chr(0x1D51E + i)] = c
     
+    # Mathematical Double-Struck (U+1D538 - U+1D56B)
+    # Exceptions: C, H, N, P, Q, R, Z are in BMP (U+2102 etc) - handled by NFKC usually, but adding for completeness
+    # The range 1D538 is 'A' (Double-Struck Capital A)
+    # This range has gaps where characters are in BMP, but Python unicodedata handles gaps or we blindly map?
+    # Better to rely on NFKC for standard ones, but let's check the range.
+    # A=1D538, B=1D539, C=2102, D=1D53B...
+    # Simple loop over A-Z using NFKC on the code point might be robust, but let's just add the contiguous blocks if any
+    # Or just rely on NFKC which is called in normalize_text.
+    # However, has_obfuscated_site_name uses UNICODE_MAP *before* NFKC?
+    # Yes: normalize_text calls UNICODE_MAP then NFKC.
+    # So if we want has_obfuscated_site_name to see clean ASCII, we should map them.
+    # Although line 385 does upper() then line 216 does NFKC...
+    # Wait, has_obfuscated_site_name logic:
+    #   if char in UNICODE_MAP: append(mapped)...
+    #   then ''.join()
+    #   then NFKC? No, explicit has_obfuscated_site_name logic does NOT call NFKC on the `text_normalized` (line 385).
+    #   It says `text_clean = re.sub(..., text_normalized)`.
+    #   Wait, `text_normalized` in line 385 is just `join(normalized).upper()`.
+    #   If Double-Struck chars are NOT in UNICODE_MAP, they remain as is.
+    #   Then `text_clean = re.sub(r'[^A-Z0-9]', '', text_clean)` removes them!
+    #   So yes, we MUST map Double-Struck explicitly.
+    
+    doublestruck_upper_start = 0x1D538
+    for i, c in enumerate('ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+        # Some are reserved/in BMP, checking validity isn't strictly needed if we just map the code point
+        # But if the char is invalid/reserved it won't appear anyway.
+        mapping[chr(doublestruck_upper_start + i)] = c.lower()
+        
+    doublestruck_lower_start = 0x1D552
+    for i, c in enumerate('abcdefghijklmnopqrstuvwxyz'):
+        mapping[chr(doublestruck_lower_start + i)] = c
+    
     # Regional Indicator Symbols (🇦-🇿)
     for i, c in enumerate('abcdefghijklmnopqrstuvwxyz'):
         mapping[chr(0x1F1E6 + i)] = c
@@ -238,6 +270,10 @@ def has_keywords(text):
 
 def has_phrases(text):
     t = normalize_leetspeak(text)
+    # Exclude subscriber/viewer context
+    subscriber_context = ['subs', 'subscriber', 'views', 'penonton', 'followers', 'like']
+    if any(w in t for w in subscriber_context):
+        return False
     return any(p in t for p in JUDOL_PHRASES)
 
 def has_unicode_brackets(text):
@@ -249,72 +285,82 @@ def has_unicode_brackets(text):
     # If ANY of these specific spam brackets exist, it's likely spam
     return any(b in text_str for b in brackets)
 
+# Pre-compile exclusion pattern
+EXCLUDED_WORDS = ['totoan', 'gerrard', 'gerard', 'edward', 'forward', 'reward', 
+                  'password', 'keyboard', 'record', 'ahmad', 'sad', 'bad',
+                  'mad', 'dad', 'had', 'add', 'odd', 'god', 'red', 'bed', 'led',
+                  'kid', 'bid', 'rid', 'mid', 'lid', 'old', 'cold', 'gold', 'bold',
+                  'sold', 'told', 'hold', 'fold', 'mold', 'card', 'hard', 'yard',
+                  'lord', 'word', 'bird', 'third', 'heard', 'world', 'child',
+                  'friend', 'behind', 'mind', 'kind', 'find', 'blind', 'wind',
+                  'sound', 'ground', 'found', 'bound', 'pound', 'alucard',
+                  'legend', 'island', 'hand', 'band', 'land', 'sand', 'brand',
+                  'stand', 'grand', 'demand', 'command', 'expand', 'load',
+                  'road', 'head', 'dead', 'read', 'lead', 'bread', 'spread', 'thread',
+                  'instead', 'ahead', 'overhead', 'upload', 'download', 'period', 'round',
+                  'squad', 'end', 'send', 'spend', 'trend', 'friend', 'blend', 'defend',
+                  'liquid', 'seagood', 'good', 'food', 'mood', 'blood', 'flood', 'wood', 'hood',
+                  'could', 'would', 'should', 'need', 'feed', 'seed', 'speed', 'weed', 'indeed',
+                  'build', 'field', 'yield', 'shield', 'wild', 'guild', 'valid', 'solid', 'stupid',
+                  'rapid', 'vivid', 'acid', 'avoid', 'void', 'roid', 'roid', 'android', 'paid',
+                  'sed', 'red', 'fled', 'bled', 'sped', 'shed', 'wed', 'ted', 'ned', 'led',
+                  'c4d', 'c3d', 'r3d', 'b3d', 's3d', 'a4d',
+                  'tenaga', 'olahraga', 'sinaga', 'kenanga', 'tetangga', 'mangga',
+                  'sitoto', 'dewanya', 'dewata', 'dewi', 'dewa19', 'dewasa',
+                  ]
+EXCLUSION_PATTERN_COMPILED = re.compile(r'\b(' + '|'.join(EXCLUDED_WORDS) + r')\b')
+
+# Pre-compile site patterns
+SITE_PATTERNS = [
+    # Nama situs judol yang spesifik (minimal 2 char prefix/suffix, no space before)
+    r'\b(?!(?:si|fan|so|ka))[\w]{2,}toto\b', # Exclude 'sitoto' (Si Toto), 'fantoto', etc if needed. 
+    # But better to use exclusion words. The exclusion list checks exact match.
+    # regex \b\w{2,}toto\b matches 'sitoto'.
+    # EXCLUSION_PATTERN_COMPILED.sub(' ', t) happens BEFORE regex.
+    # So adding 'sitoto' to EXCLUDED_WORDS is sufficient.
+    r'\b\w{2,}slot\b', r'\b\w{2,}togel\b',  # xxxTOTO, xxxSLOT, xxxTOGEL
+    r'\btoto\w{2,}\b',  # TOTOxxx (totospin, totocc, dll) - minimal 2 char suffix
+    r'\b[a-z]{2,}(?:4d|777|88)\b', r'\b[a-z]+\d+d\b', # xxx4D, xxx777, xxx88 (require 2+ letters prefix, exclude C4D)
+    r'\b\w{2,}hoki\b', r'\b\w+naga\b', r'\bgaruda\s*hoki\b',
+    r'\bga\s*ruda\s*ho\s*ki\b', r'\bruda\s*ho\s*ki\b',  # GA RUDA HO KI pattern
+    # Pola situs dengan angka umum
+    r'\b[a-z]{3,}(?:138|303|369|898|123|76|62|77|98)\b', # Require 3+ letters prefix (removed 69 - too common)
+    # Situs spesifik dengan angka
+    r'\bharta\d+\b', r'\bplaytoto\d+\b', r'\bbonus\w+\b', r'\bdewa\w{2,}\b',
+    # Nama situs spesifik yang ditemukan
+    r'\barwana', r'\bplazabola\b', r'\bmona\s*4d\b', 
+    r'\bkino\w*d\b', r'\blazadatoto\b', r'\bshopetoto\b',
+    r'\bpulauwin\b', r'\baero\w*\d+\b', r'\bvisi\s*4d\b',
+    r'\bdora\s*\d+\b', r'\bambil\s*4d\b', r'\bxuxu\s*4d\b',
+    r'\bgacorwin\w*\b', r'\bpusatwin\b', # Added pusatwin
+    # Situs baru ditemukan dari analisis FN
+    r'\bipototo\b', r'\bometoto\b', r'\bpstoto\d*\b', r'\btotospin\b',
+    r'\bevostoto\b', r'\btotocc\b',
+    # Situs dari analisis FN terbaru
+    r'\bmini\d{3,}\b', r'\brtpwin\b', r'\bgopek\d+\b', r'\bbibit\d+\b',
+    r'\bphoenix\d+\b', r'\bligamansion\d*\b', r'\bmbak\d+[a-z]*\b',
+    r'\bdewadora\b', r'\bagustoto\b', r'\bmuraipoker\b', r'\bpaste\d*[a-z]*\b',
+    r'\bkurirslot\b', r'\bweton\W*\d+\b', r'\bpp\s*ho\s*ki\b',
+    # Situs dari analisis FN round 2
+    r'\bzoom\d+\b', r'\bbandargaruda\b', r'\bsukajp\b', r'\bmamajitu\b',
+    r'\bvhoki\b', r'\b5unsur\b', r'\bga\s*ru\s*da\s*ho\s*k[i]?\b',
+    # Situs dari analisis FN round 3
+    r'\bligakembar\b', r'\bfilabola\b', r'\bpulauwin\b',
+    # Situs dari analisis FN round 4 (post-AI pipeline)
+    r'\bdibet\d+[a-z]*\b', r'\bjuno\d+[a-z]*\b', r'\bpstoto\d+\b',
+    r'\bdewa\s*dora\b', r'\bharta\d+\b',
+    # Pola jp/jepi (Note: Pola uang dipindah ke has_judol_money)
+    r'\bjepi\b', r'\bjepee\b', r'\bjekpot\b',
+]
+SITE_PATTERNS_COMPILED = [re.compile(p, re.IGNORECASE) for p in SITE_PATTERNS]
+
 def has_site_pattern(text):
     t = normalize_text(text)
     
-    # Exclude kata-kata yang bukan nama situs (common words ending with d)
-    # Only exclude exact word matches, not partial (e.g., 'squad' should not block 'squad78')
-    excluded_words = ['totoan', 'gerrard', 'gerard', 'edward', 'forward', 'reward', 
-                      'password', 'keyboard', 'record', 'ahmad', 'sad', 'bad',
-                      'mad', 'dad', 'had', 'add', 'odd', 'god', 'red', 'bed', 'led',
-                      'kid', 'bid', 'rid', 'mid', 'lid', 'old', 'cold', 'gold', 'bold',
-                      'sold', 'told', 'hold', 'fold', 'mold', 'card', 'hard', 'yard',
-                      'lord', 'word', 'bird', 'third', 'heard', 'world', 'child',
-                      'friend', 'behind', 'mind', 'kind', 'find', 'blind', 'wind',
-                      'sound', 'ground', 'found', 'bound', 'pound', 'alucard',
-                      'legend', 'island', 'hand', 'band', 'land', 'sand', 'brand',
-                      'stand', 'grand', 'demand', 'command', 'expand', 'load',
-                      'road', 'head', 'dead', 'read', 'lead', 'bread', 'spread', 'thread',
-                      'instead', 'ahead', 'overhead', 'upload', 'download', 'period', 'round',
-                      'squad', 'end', 'send', 'spend', 'trend', 'friend', 'blend', 'defend',
-                      'liquid', 'seagood', 'good', 'food', 'mood', 'blood', 'flood', 'wood', 'hood',
-                      'could', 'would', 'should', 'need', 'feed', 'seed', 'speed', 'weed', 'indeed',
-                      'build', 'field', 'yield', 'shield', 'wild', 'guild', 'valid', 'solid', 'stupid',
-                      'rapid', 'vivid', 'acid', 'avoid', 'void', 'roid', 'roid', 'android', 'paid',
-                      'sed', 'red', 'fled', 'bled', 'sped', 'shed', 'wed', 'ted', 'ned', 'led',
-                      'c4d', 'c3d', 'r3d', 'b3d', 's3d', 'a4d']  # Cinema 4D, Blender 3D, etc.
-    # Use single compiled pattern for better performance
-    exclusion_pattern = r'\b(' + '|'.join(excluded_words) + r')\b'
-    t = re.sub(exclusion_pattern, ' ', t)
+    # Exclude kata-kata yang bukan nama situs
+    t = EXCLUSION_PATTERN_COMPILED.sub(' ', t)
     
-    patterns = [
-        # Nama situs judol yang spesifik (minimal 2 char prefix/suffix, no space before)
-        r'\b\w{2,}toto\b', r'\b\w{2,}slot\b', r'\b\w{2,}togel\b',  # xxxTOTO, xxxSLOT, xxxTOGEL
-        r'\btoto\w{2,}\b',  # TOTOxxx (totospin, totocc, dll) - minimal 2 char suffix
-        r'\b[a-z]{2,}(?:4d|777|88)\b', r'\b[a-z]+\d+d\b', # xxx4D, xxx777, xxx88 (require 2+ letters prefix, exclude C4D)
-        # Nama situs dengan keyword hoki, naga, garuda
-        r'\b\w{2,}hoki\b', r'\b\w+naga\b', r'\bgaruda\s*hoki\b',
-        r'\bga\s*ruda\s*ho\s*ki\b', r'\bruda\s*ho\s*ki\b',  # GA RUDA HO KI pattern
-        # Pola situs dengan angka umum
-        r'\b[a-z]{3,}(?:138|303|369|898|123|76|62|77|98)\b', # Require 3+ letters prefix (removed 69 - too common)
-        # Situs spesifik dengan angka
-        r'\bharta\d+\b', r'\bplaytoto\d+\b', r'\bbonus\w+\b', r'\bdewa\w{2,}\b',
-        # Nama situs spesifik yang ditemukan
-        r'\barwana', r'\bplazabola\b', r'\bmona\s*4d\b', 
-        r'\bkino\w*d\b', r'\blazadatoto\b', r'\bshopetoto\b',
-        r'\bpulauwin\b', r'\baero\w*\d+\b', r'\bvisi\s*4d\b',
-        r'\bdora\s*\d+\b', r'\bambil\s*4d\b', r'\bxuxu\s*4d\b',
-        r'\bgacorwin\w*\b', r'\bpusatwin\b', # Added pusatwin
-        # Situs baru ditemukan dari analisis FN
-        r'\bipototo\b', r'\bometoto\b', r'\bpstoto\d*\b', r'\btotospin\b',
-        r'\bevostoto\b', r'\btotocc\b',
-        # Situs dari analisis FN terbaru
-        r'\bmini\d{3,}\b', r'\brtpwin\b', r'\bgopek\d+\b', r'\bbibit\d+\b',
-        r'\bphoenix\d+\b', r'\bligamansion\d*\b', r'\bmbak\d+[a-z]*\b',
-        r'\bdewadora\b', r'\bagustoto\b', r'\bmuraipoker\b', r'\bpaste\d*[a-z]*\b',
-        r'\bkurirslot\b', r'\bweton\W*\d+\b', r'\bpp\s*ho\s*ki\b',
-        # Situs dari analisis FN round 2
-        r'\bzoom\d+\b', r'\bbandargaruda\b', r'\bsukajp\b', r'\bmamajitu\b',
-        r'\bvhoki\b', r'\b5unsur\b', r'\bga\s*ru\s*da\s*ho\s*k[i]?\b',
-        # Situs dari analisis FN round 3
-        r'\bligakembar\b', r'\bfilabola\b', r'\bpulauwin\b',
-        # Situs dari analisis FN round 4 (post-AI pipeline)
-        r'\bdibet\d+[a-z]*\b', r'\bjuno\d+[a-z]*\b', r'\bpstoto\d+\b',
-        r'\bdewa\s*dora\b', r'\bharta\d+\b',
-        # Pola jp/jepi (Note: Pola uang dipindah ke has_judol_money)
-        r'\bjepi\b', r'\bjepee\b', r'\bjekpot\b',
-    ]
-    return any(re.search(p, t, re.IGNORECASE) for p in patterns)
+    return any(p.search(t) for p in SITE_PATTERNS_COMPILED)
 
 def has_judol_money(text):
     """Check for money patterns common in gambling promotion (10jt, 500jt)."""
@@ -323,7 +369,13 @@ def has_judol_money(text):
         r'\d{2,}jt\b', r'\d{2,}\s*juta\b',
     ]
     # Check exclusion for legitimate money context (gaji, tunjangan, harga, dll)
-    legit_context = ['gaji', 'tunjangan', 'harga', 'bayar', 'hutang', 'utang', 'dpr', 'pejabat', 'korupsi']
+    legit_context = ['gaji', 'tunjangan', 'harga', 'bayar', 'hutang', 'utang', 'dpr', 'pejabat', 'korupsi',
+                     # Casual mentions
+                     'subscribe', 'subcribe', 'subscriber', 'views', 'penonton', 'followers',
+                     # Business/wealth context
+                     'kekayaan', 'triliun', 'miliar', 'saham', 'dollar', 'bisnis', 'perusahaan',
+                     # Transfer/casual
+                     'transfer', 'tf ', 'kirim', 'pinjam', 'nyadar', 'baru']
     if any(w in t for w in legit_context):
         return False
         
@@ -359,7 +411,8 @@ def has_obfuscated_site_name(text):
             r'GARUDA.?HO.?KI',    # GARUDAHOKI
             r'PLAZA.?BOLA',       # PLAZABOLA
             # Specific site names added (no boundary check for robust match)
-            'PULAUWIN', 'ARWANATOTO', 'KURIRSLOT', 'BATRE4D', 'BATRE4Y'
+            'PULAUWIN', 'ARWANATOTO', 'KURIRSLOT', 'BATRE4D', 'BATRE4Y',
+            'SUKU88' # Added SUKU88
         ]
         for pattern in specific_patterns:
             # Jika pattern adalah simple string (bukan regex), pakai 'in'
@@ -380,6 +433,15 @@ def has_obfuscated_site_name(text):
         else:
             normalized.append(char)
     text_normalized = ''.join(normalized).upper()
+    
+    # Check if 'SLOT' appears as a standalone word (not part of a site name like xxxSLOT)
+    # If it does, it's likely just the keyword, not obfuscation
+    text_normalized_spaced = re.sub(r'[\u200b\u200c\u200d\ufeff]', '', text_normalized)  # Keep spaces
+    if re.search(r'\bSLOT\b', text_normalized_spaced) and not re.search(r'\w{2,}SLOT', text_normalized_spaced):
+        # "slot" is a standalone word, not an obfuscated site name
+        # Still check for other patterns, but skip the xxxSLOT pattern
+        pass  # Continue to check other patterns, but we'll handle xxxSLOT separately below
+    
     # Remove spaces, zero-width chars, and non-alphanumeric
     text_clean = re.sub(r'[\s\u200b\u200c\u200d\ufeff]', '', text_normalized)
     text_clean = re.sub(r'[^A-Z0-9]', '', text_clean)  # Keep only alphanumeric
@@ -391,7 +453,7 @@ def has_obfuscated_site_name(text):
         r'\w{2,}TOGEL\b',     # xxxTOGEL  
         r'T[O0]GEL\d+',       # T0GEL62, TOGEL99
         r'\w+WIN\b',          # xxxWIN (PULAUWIN, etc) - but check for common words
-        r'\w+SLOT\b',         # xxxSLOT
+        r'\w{2,15}SLOT\b',     # xxxSLOT - limit prefix to max 15 chars to avoid matching entire sentences
         r'\w{3,}88\b',        # xxx88
         r'\w{3,}168\b',       # xxx168
         # Removed: xxx69, xxx77 (too common - "than 69", "dota77", etc)
@@ -405,7 +467,18 @@ def has_obfuscated_site_name(text):
         # Specific 69/77 sites (not generic pattern)
         r'SERU69\b', r'DORA77\b', r'LESTI77\b', r'GIAT77[7]?\b',
     ]
+    # Check if SLOT is standalone (to avoid matching "mending ... slot" as xxxSLOT)
+    slot_is_standalone = re.search(r'\bSLOT\b', text_normalized_spaced) and not re.search(r'\w{2,}SLOT', text_normalized_spaced)
+    # Check if TOTO is standalone (to avoid matching "Aah Toto" as xxxTOTO)
+    toto_is_standalone = re.search(r'\bTOTO\b', text_normalized_spaced) and not re.search(r'\w{2,}TOTO', text_normalized_spaced)
+    
     for pattern in site_patterns:
+        # Skip xxxSLOT pattern if SLOT appears as a standalone word
+        if slot_is_standalone and 'SLOT' in pattern and r'\w' in pattern:
+            continue  # Skip this pattern for standalone SLOT
+        # Skip xxxTOTO pattern if TOTO appears as a standalone word
+        if toto_is_standalone and 'TOTO' in pattern and r'\w' in pattern:
+            continue  # Skip this pattern for standalone TOTO
         if re.search(pattern, text_clean, re.IGNORECASE):
             return True
     
@@ -477,25 +550,75 @@ def is_band_or_person_toto(text):
         return False
     text_lower = str(text).lower()
     
-    # Jika ada pattern situs judol, bukan band/person
+    # If 'toto' is not in text, no need to check
+    if 'toto' not in text_lower:
+        return False
+    
+    # If text has strong gambling site patterns (xxxTOTO, etc), it's NOT person/band
     if has_site_pattern(text):
         return False
     
+    # Check if this looks like an obfuscated site name with TOTO pattern
+    # We only block if the obfuscation check finds a xxxTOTO pattern, not just any emoji
+    text_normalized = normalize_text(text).upper()
+    text_clean = re.sub(r'[^A-Z0-9]', '', text_normalized)
+    # Check for xxxTOTO pattern (gambling site)
+    if re.search(r'[A-Z]{2,}TOTO', text_clean):
+        return False  # This is likely a gambling site (e.g., ARWANATOTO)
     # Context for BAND TOTO
     band_words = ['lagu', 'musik', 'album', 'rosanna', 'africa', 'hold you back', 
                   'dewa 19', 'dewa19', 'band', 'personil', 'drummer', 'guitarist',
                   'feat ', 'cover', 'mendengar', 'dengerin', 'listen', 'bermusik',
-                  'channel', 'menarik', 'sah good', 'seagood']
+                  'channel', 'menarik', 'sah good', 'seagood', 'terbaik',
+                  # Fan context
+                  'penggemar', 'suka banget', 'salam dari', 'salam untuk']
     
-    # Context for person name "Pak Toto" (Otto Toto Sugiri)
+    # Context for person name "Pak Toto", "si Toto", "Grazie Toto"
     person_words = ['pak toto', 'bapak toto', 'otto toto', 'toto wolff', 'kekayaan',
                     'data center', 'dci', 'pionir', 'praktisi', 'wawancara', 
                     'undang', 'podcast', 'diundang', 'beliau', 'teknologi',
-                    'vendor', 'engineer', 'kerjain', 'motivasi']
+                    'vendor', 'engineer', 'kerjain', 'motivasi',
+                    # Indonesian casual references to person named Toto
+                    'si toto', 'dasar si toto', 'ah toto', 'woua toto', 'thanks toto',
+                    'grazie toto', 'takurany toto', 'hulu tah', 'ruksak toto',
+                    'jebleh ku', 'beban sitoto', 'totoka', 'totoale',
+                    # Sundanese casual (hulu ruksak = crazy head)
+                    'hulu ruksak', 'tangkurak',
+                    # YouTuber/streamer context
+                    'ketua',
+                    # F1 context
+                    'f1', 'formula 1', 'mercedes', 'red bull',
+                    # Italian greeting (F1 fans)
+                    'grazie',
+                    # Foreign language Toto (Moroccan rapper El Grande Toto)
+                    'grande', 'el grande', 'morocco', 'rap', 'maroc', 'pablo',
+                    # Game context (not gambling)
+                    'game', 'minecraft', 'kang sine']
     
-    # Cek apakah ada konteks band atau person
+    # Esports team context - if these esports teams are mentioned with "toto",
+    # it's likely a joke/meme, not gambling (e.g., "SONIC TOTO" = Onic team)
+    esports_words = ['onic', 'evos', 'rrq', 'alter ego', 'bigetron', 'aura', 
+                     'geek fam', 'nxl', 'aerowolf', 'sonic', 'mpl', 'esports',
+                     'mobile legends', 'ml', 'm series', 'playoff']
+    
+    # Check for contexts
     has_band_context = any(w in text_lower for w in band_words)
     has_person_context = any(w in text_lower for w in person_words)
+    has_esports_context = any(w in text_lower for w in esports_words)
+    
+    # If has toto AND (band/person/esports context), return True
+    if 'toto' in text_lower:
+        if has_band_context or has_person_context or has_esports_context:
+            return True
+        # Standalone "toto" in casual comments (not combined with site patterns)
+        # Check if toto appears as a standalone word with casual context
+        casual_patterns = [r'\bsi toto\b', r'\btoto\s*😂', r'\btoto\s*😭', 
+                          r'\btoto\s*🔥', r'\btoto\s*👏', r'ah toto', 
+                          r'aah toto', r'thanks toto', r'grazie toto',
+                          r'suka.{0,10}toto', r'toto.{0,10}❤']
+        for p in casual_patterns:
+            if re.search(p, text_lower):
+                return True
     
     return has_band_context or has_person_context
 
@@ -531,6 +654,8 @@ def classify(text):
     if pd.isna(text) or str(text).strip() == "":
         return 0
     
+    text = str(text).lower()
+    
     # Skip jika ini konteks band TOTO atau nama orang
     if is_band_or_person_toto(text):
         return 0
@@ -545,6 +670,33 @@ def classify(text):
     if has_spaced_site_name(text): score += 3 # Added for spaced-out names
     if count_judol_emojis(text) >= 2: score += 1
     
+    # Special check for "mending ... daripada ... slot" comparison (not promo)
+    # If text has "mending" and "slot", it's likely a comparison/joke, unless it has a link/site pattern
+    text_normalized = normalize_text(text)  # Use normalized version for cleaner matching
+    if 'slot' in text_normalized and 'mending' in text_normalized and not has_site_pattern(text) and not has_obfuscated_site_name(text):
+         # check if "daripada" or "drpd" or "timbang" exists
+         if any(w in text_normalized for w in ['daripada', 'drpd', 'timbang', 'ketimbang', 'dari pada']):
+              score -= 4 # Downgrade heavily
+
+    # Heuristic for game lore (Zeus + Kratos) - Not gambling
+    if 'kratos' in text and ('zeus' in text or 'olympus' in text) and not has_site_pattern(text):
+         score -= 4
+
+    # Heuristic for "gacor" without gambling context - Not gambling
+    # "gacor" in Indonesian can mean: 1) bird singing loudly, 2) slang for "great/performing well"
+    # Only flag as gambling if there are other strong gambling indicators
+    gacor_bird_context = ['burung', 'kicau', 'suara', 'lagu', 'nyanyian', 'karaoke', 
+                          'murai', 'kenari', 'cucak', 'pleci', 'love bird', 'cendet']
+    if 'gacor' in text:
+        # If gacor appears with bird context, definitely not gambling
+        if any(w in text for w in gacor_bird_context):
+            score -= 4  # Likely bird/singing context
+        # If gacor appears WITHOUT gambling site patterns/obfuscation, likely not gambling
+        elif not has_site_pattern(text) and not has_obfuscated_site_name(text) and not has_phrases(text):
+            # Check if this is really just casual usage (no slot, no maxwin, no money patterns)
+            if 'slot' not in text and 'maxwin' not in text and not has_judol_money(text):
+                score -= 2  # Downgrade - likely casual "gacor" usage
+
     # Reduce score for anti-gambling comments (sudah dicek di is_anti_gambling)
     # Using the renamed function here
     if is_anti_gambling_weak(text): score -= 4
@@ -558,7 +710,7 @@ def classify(text):
 # EXPERT PATCH PATTERNS (Checking Obfuscation & Specific Sites)
 EXPERT_SITE_PATTERNS = [
     r'MINI\d{3,}',   # MINI1221
-    r'MBAK[A-Z0-9]*\d+', # Catch MBAK4D, MBAKD2, etc
+    r'MBAK[A-Z0-9]{0,10}\d+', # Catch MBAK4D, MBAKD2, etc - Limit length to avoid greedy match
     r'LIGAMANSION\d*',
     r'DORA\d{2,}',   # DORA77
     r'KYT\d+',       # KYT4D
@@ -597,28 +749,36 @@ EXPERT_SITE_PATTERNS = [
     r'PRIMBON\d+',   # PRIMBON178 (New)
     r'TIMO\d+',      # TIMO4D (New)
     r'GELORA\d+',    # Require digits
-    r'LAUTAN\w+',    # Lautan = Ocean. "Lautan api". Risk. User exp: "LAUTANSL0T". 
+    r'LAUTAN(SLOT|TOTO|POKER|WIN|BET|\d+)',    # Lautan = Ocean. "Lautan api". Risk. User exp: "LAUTANSL0T". 
                      # Change to LAUTAN\d+ or LAUTANSL.
-    r'JOS\d+',
-    r'KOPI\d+',      # Kopi = Coffee. "Kopi susu". User exp: "Kopi77". Require digits. OK.
+    # r'JOS\d+', # Removed common word
+    r'KOPI(SLOT|TOTO|\d+)',      # Kopi = Coffee. "Kopi susu". User exp: "Kopi77". Require digits. OK.
     r'PSTOTO\d*',
     r'SEKALI\d+',
     r'MANUT\d+',
     r'CIDUK\d+|CIDUK[-]?JP', # User exp: Ciduk-JP.
     r'CUKONG\d+',
-    r'GROK\d+',      # Require digits
+    # r'GROK\d+',      # Removed - Crypto spam, often not Judol specific.
+
+    # PROBET was ID 1349 (Label 1 correct).
+    r'DENYUT\d+',
+    r'HOLYWIN',
+    r'DOYAN\s*TOTO',
+    r'D\s*U\s*O?\s*G\s*A\s*M\s*I\s*N\s*G', # Catch DUGAMING (missing O) matched as DU O? G..
     r'SAMBAR\d+|SAMBARJP',
     r'MONET\d+|MONET[-]?\d+', 
     r'OJOL\d+',
     r'GLOBAL\d+',    # Global is common. Require digits. OK.
     r'JEPOR\d+|JEPOR[-]?\d+',
     r'REKOR\d+|REKOR[-]?\d+', # Rekor = Record. Require digits.
+    r'RP\d+',        # RP369
     r'TOHIR\d+',     # Tohir is name. Require digits.
     r'PLAYTOTO\d*',
     r'AREA\s*MAIN',
     r'KAWASAN\s*TEMPUR',
     r'ARENA\s*TEMPUR',
-    r'AUTO\s*TURBO'
+    r'AUTO\s*TURBO',
+    r'TIKET\d+',      # TIKET200
 ]
 
 # URL Handling
@@ -629,14 +789,15 @@ SAFE_DOMAINS = [r'youtube\.com', r'youtu\.be', r'google\.com', r'facebook\.com',
 # Only strong anti-gambling words - avoid words used in promotion tactics
 ANTI_KEYWORDS_STRONG = [
     'berhenti main', 'stop judi', 'jijik', 'tobat', 'penipuan', 'tipu', 
-    'bohong', 'haram', 'dosa', 'setan', 'iblis', 'jauhi judi', 'korban judi',
-    'korban slot', 'miskin gara', 'melarat', 'hancur karena'
+    'bohong', 'haram', 'dosa', 'setan', 'iblis', 'jauhi', 'korban',
+    'miskin', 'melarat', 'hancur', 'bangkrut', 'neraka', 'tobat', 'siksa'
 ]
 
 # Promotion tactics that look like anti-gambling but are actually ads
 PROMO_TACTICS = [
     'jangan bilang', 'gak nyuruh', 'awalnya takut', 'takut rungkad',
-    'pernah rungkad', 'gak rugi', 'tidak rugi', 'tanpa rugi'
+    'pernah rungkad', 'gak rugi', 'tidak rugi', 'tanpa rugi',
+    'cape ditipu', 'cape rungkad', 'tempat jujur', 'situs jujur'
 ]
 
 def is_likely_anti_gambling(text):
@@ -650,8 +811,25 @@ def is_likely_anti_gambling(text):
     # Check for strong anti-gambling phrases
     if any(k in text for k in ANTI_KEYWORDS_STRONG):
         # But also check it's not combined with site promotion
+        # But also check it's not combined with site promotion
+        # Or negated (e.g. "bukan slot bohongan")
         if 'jangan ragu' in text or 'jangan takut' in text or 'jangan lupa' in text:
             return False
+            
+        # Check for negation of anti-keywords
+        # "bukan ... bohong", "gak ... tipu"
+        negations = ['bukan', 'ga', 'gak', 'tidak', 'gapernah', 'bkn']
+        words = text.split()
+        # Simple proximity check
+        for i, word in enumerate(words):
+            # Check if this word contains an anti-keyword
+            if any(k in word for k in ANTI_KEYWORDS_STRONG):
+                # Check 3 words before
+                start = max(0, i-3)
+                context = words[start:i]
+                if any(neg in context for neg in negations):
+                    return False # Negated anti-keyword -> likely Promo (e.g. "bukan tipu")
+                    
         return True
     
     return False
@@ -725,7 +903,13 @@ def run_pipeline():
     df.loc[mask_anti & (df['weak_label'] == 1), 'training_label'] = 0
     print(f"Corrected {corrected_count} likely false positives (Anti-Judol) for training.")
     
-    print("\n--- 4. AI MODEL TRAINING (TENSORFLOW) ---")
+    # NEW: Incorporate Expert Patterns into Training Labels
+    # This matches the "fix everything" request: ensure AI learns patterns caught by expert rules (e.g. PASTE4D)
+    print("Checking expert patterns for training data...")
+    mask_expert = df['comment_text'].progress_apply(check_expert_pattern)
+    expert_added_count = df.loc[mask_expert & (df['training_label'] == 0)].shape[0]
+    df.loc[mask_expert, 'training_label'] = 1
+    print(f"Added {expert_added_count} expert pattern labels to training data.")
     # Features & Targets
     X_text = df['clean_text'].values
     y = df['training_label'].values # Train on CLEANED labels
@@ -784,8 +968,8 @@ def run_pipeline():
     
     print("\n--- 6. FINAL LABELING (COMBINED) ---")
     # Apply expert pattern check
-    print("Checking expert patterns...")
-    mask_expert = df['comment_text'].progress_apply(check_expert_pattern)
+    print("Using pre-calculated expert patterns...")
+    # mask_expert is already calculated above
     
     # Final label logic (combining Regex + AI + Expert):
     # - Regex (weak_label) sudah di-tune dengan baik
