@@ -246,7 +246,8 @@ def has_site_pattern(text):
                       'could', 'would', 'should', 'need', 'feed', 'seed', 'speed', 'weed', 'indeed',
                       'build', 'field', 'yield', 'shield', 'wild', 'guild', 'valid', 'solid', 'stupid',
                       'rapid', 'vivid', 'acid', 'avoid', 'void', 'roid', 'roid', 'android', 'paid',
-                      'sed', 'red', 'fled', 'bled', 'sped', 'shed', 'wed', 'ted', 'ned', 'led']
+                      'sed', 'red', 'fled', 'bled', 'sped', 'shed', 'wed', 'ted', 'ned', 'led',
+                      'c4d', 'c3d', 'r3d', 'b3d', 's3d', 'a4d']  # Cinema 4D, Blender 3D, etc.
     # Use single compiled pattern for better performance
     exclusion_pattern = r'\b(' + '|'.join(excluded_words) + r')\b'
     t = re.sub(exclusion_pattern, ' ', t)
@@ -255,12 +256,12 @@ def has_site_pattern(text):
         # Nama situs judol yang spesifik (minimal 2 char prefix/suffix, no space before)
         r'\b\w{2,}toto\b', r'\b\w{2,}slot\b', r'\b\w{2,}togel\b',  # xxxTOTO, xxxSLOT, xxxTOGEL
         r'\btoto\w{2,}\b',  # TOTOxxx (totospin, totocc, dll) - minimal 2 char suffix
-        r'\b\w+(?:4d|777|88)\b', r'\b[a-z]+\d+d\b', # xxx4D, xxx777, xxx88, xxx[NUM]D (removed 99 - too common)
+        r'\b[a-z]{2,}(?:4d|777|88)\b', r'\b[a-z]+\d+d\b', # xxx4D, xxx777, xxx88 (require 2+ letters prefix, exclude C4D)
         # Nama situs dengan keyword hoki, naga, garuda
         r'\b\w{2,}hoki\b', r'\b\w+naga\b', r'\bgaruda\s*hoki\b',
         r'\bga\s*ruda\s*ho\s*ki\b', r'\bruda\s*ho\s*ki\b',  # GA RUDA HO KI pattern
         # Pola situs dengan angka umum
-        r'\b\w{3,}(?:138|303|369|898|123|69|76|62|77|98)\b',
+        r'\b[a-z]{3,}(?:138|303|369|898|123|76|62|77|98)\b', # Require 3+ letters prefix (removed 69 - too common)
         # Situs spesifik dengan angka
         r'\bharta\d+\b', r'\bplaytoto\d+\b', r'\bbonus\w+\b', r'\bdewa\w{2,}\b',
         # Nama situs spesifik yang ditemukan
@@ -282,6 +283,9 @@ def has_site_pattern(text):
         r'\bvhoki\b', r'\b5unsur\b', r'\bga\s*ru\s*da\s*ho\s*k[i]?\b',
         # Situs dari analisis FN round 3
         r'\bligakembar\b', r'\bfilabola\b', r'\bpulauwin\b',
+        # Situs dari analisis FN round 4 (post-AI pipeline)
+        r'\bdibet\d+[a-z]*\b', r'\bjuno\d+[a-z]*\b', r'\bpstoto\d+\b',
+        r'\bdewa\s*dora\b', r'\bharta\d+\b',
         # Pola jp/jepi (Note: Pola uang dipindah ke has_judol_money)
         r'\bjepi\b', r'\bjepee\b', r'\bjekpot\b',
     ]
@@ -361,13 +365,11 @@ def has_obfuscated_site_name(text):
         r'\w{2,}TOTO\b',      # xxxTOTO
         r'\w{2,}TOGEL\b',     # xxxTOGEL  
         r'T[O0]GEL\d+',       # T0GEL62, TOGEL99
-        r'\w+WIN\b',          # xxxWIN (PULAUWIN, etc)
+        r'\w+WIN\b',          # xxxWIN (PULAUWIN, etc) - but check for common words
         r'\w+SLOT\b',         # xxxSLOT
         r'\w{3,}88\b',        # xxx88
         r'\w{3,}168\b',       # xxx168
-        r'\w{3,}77\b',        # xxx77
-        r'\w{3,}99\b',        # xxx99
-        r'\w{3,}69\b',        # xxx69 (DENYUT69, dll)
+        # Removed: xxx69, xxx77 (too common - "than 69", "dota77", etc)
         r'\w{2,}369\b',       # xxx369 (RP369, dll)
         r'\w{3,}898\b',       # xxx898 (GALAXY898, dll)
         r'\w{3,}789\b',       # xxx789
@@ -375,6 +377,8 @@ def has_obfuscated_site_name(text):
         r'\w{3,}138\b',       # xxx138
         r'\w{3,}777\b',       # xxx777
         r'\w{3,}888\b',       # xxx888
+        # Specific 69/77 sites (not generic pattern)
+        r'SERU69\b', r'DORA77\b', r'LESTI77\b', r'GIAT77[7]?\b',
     ]
     for pattern in site_patterns:
         if re.search(pattern, text_clean, re.IGNORECASE):

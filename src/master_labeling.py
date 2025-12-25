@@ -114,18 +114,34 @@ URL_PATTERN = r'(https?://\S+|www\.\S+)'
 SAFE_DOMAINS = [r'youtube\.com', r'youtu\.be', r'google\.com', r'facebook\.com', r'instagram\.com']
 
 # Anti-gambling keywords for heuristic correction of TRAINING data
-ANTI_KEYWORDS = [
-    'berhenti', 'stop', 'jijik', 'tobat', 'hancur', 'rugi', 'penipuan', 'tipu', 
-    'bohong', 'haram', 'dosa', 'setan', 'iblis', 'jauhi', 'jangan', 'korban',
-    'miskin', 'melarat', 'habis', 'kalah', ' rungkad', 'gembel'
+# Only strong anti-gambling words - avoid words used in promotion tactics
+ANTI_KEYWORDS_STRONG = [
+    'berhenti main', 'stop judi', 'jijik', 'tobat', 'penipuan', 'tipu', 
+    'bohong', 'haram', 'dosa', 'setan', 'iblis', 'jauhi judi', 'korban judi',
+    'korban slot', 'miskin gara', 'melarat', 'hancur karena'
+]
+
+# Promotion tactics that look like anti-gambling but are actually ads
+PROMO_TACTICS = [
+    'jangan bilang', 'gak nyuruh', 'awalnya takut', 'takut rungkad',
+    'pernah rungkad', 'gak rugi', 'tidak rugi', 'tanpa rugi'
 ]
 
 def is_likely_anti_gambling(text):
+    """Check if comment is genuinely anti-gambling (not a promotion tactic)."""
     text = str(text).lower()
-    if any(k in text for k in ANTI_KEYWORDS):
-        if "jangan ragu" in text or "jangan takut" in text or "jangan lupa" in text:
+    
+    # Check for promotion tactics first - these are NOT anti-gambling
+    if any(tactic in text for tactic in PROMO_TACTICS):
+        return False
+    
+    # Check for strong anti-gambling phrases
+    if any(k in text for k in ANTI_KEYWORDS_STRONG):
+        # But also check it's not combined with site promotion
+        if 'jangan ragu' in text or 'jangan takut' in text or 'jangan lupa' in text:
             return False
         return True
+    
     return False
 
 def check_expert_pattern(text):
