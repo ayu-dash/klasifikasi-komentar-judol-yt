@@ -1,6 +1,9 @@
 """
 labeling.py - Refactored with SOAP and DRY principles
 
+Modul ini dapat diimport langsung di notebook:
+    from src.labeling import Config, TextNormalizer, PatternMatcher, JudolClassifier, LabelingPipeline
+    
 Classes:
     - Config: Configuration constants
     - TextNormalizer: Text normalization and Unicode handling
@@ -10,36 +13,78 @@ Classes:
 """
 
 import os
-import sys
 import re
 import unicodedata
-import argparse
-from typing import List, Set, Optional, Tuple
+from typing import List, Optional
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
-import tensorflow as tf
-from tqdm import tqdm
-from tensorflow.keras.layers import TextVectorization, Embedding, GlobalAveragePooling1D, Dense, Dropout
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.callbacks import EarlyStopping
-from sklearn.model_selection import train_test_split
 
-# Initialize tqdm for pandas
-tqdm.pandas()
+# Lazy imports untuk TensorFlow (hanya saat diperlukan)
+_tf = None
+_tqdm_initialized = False
+
+
+def _init_tqdm():
+    """Initialize tqdm for pandas (lazy initialization)."""
+    global _tqdm_initialized
+    if not _tqdm_initialized:
+        from tqdm import tqdm
+        tqdm.pandas()
+        _tqdm_initialized = True
+
+
+def _get_tf():
+    """Lazy import TensorFlow."""
+    global _tf
+    if _tf is None:
+        import tensorflow as tf
+        _tf = tf
+    return _tf
 
 
 # ==========================================
 # CONFIGURATION (DRY: Centralized Constants)
 # ==========================================
 class Config:
-    """Centralized configuration constants."""
+    """Centralized configuration constants.
     
-    # Paths
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATASET_DIR = os.path.join(BASE_DIR, '..', 'datasets')
-    DEFAULT_INPUT_FILE = os.path.join(DATASET_DIR, 'comments_from_scraping_new.csv')
-    DEFAULT_OUTPUT_FILE = os.path.join(DATASET_DIR, 'comments_labeled_final.csv')
+    Usage in notebook:
+        Config.set_base_dir('/path/to/project')  # Optional, auto-detected by default
+        Config.verbose = False  # Disable print statements
+    """
+    
+    # Runtime settings
+    verbose = True  # Set to False untuk suppress print statements
+    
+    # Paths - Will be set dynamically
+    _base_dir = None
+    
+    @classmethod
+    def get_base_dir(cls) -> str:
+        """Get base directory, auto-detecting if not set."""
+        if cls._base_dir is None:
+            # Try to detect from __file__ location
+            cls._base_dir = str(Path(__file__).parent.parent)
+        return cls._base_dir
+    
+    @classmethod
+    def set_base_dir(cls, path: str):
+        """Set base directory explicitly (useful for notebooks)."""
+        cls._base_dir = str(Path(path))
+    
+    @classmethod
+    def get_dataset_dir(cls) -> str:
+        return str(Path(cls.get_base_dir()) / 'datasets')
+    
+    @classmethod
+    def get_default_input_file(cls) -> str:
+        return str(Path(cls.get_dataset_dir()) / 'comments_from_scraping_new.csv')
+    
+    @classmethod
+    def get_default_output_file(cls) -> str:
+        return str(Path(cls.get_dataset_dir()) / 'comments_labeled_final.csv')
     
     # ML Parameters
     MAX_FEATURES = 20000
@@ -56,6 +101,12 @@ class Config:
     # URL Patterns
     URL_PATTERN = r'(https?://\S+|www\.\S+)'
     SAFE_DOMAINS = [r'youtube\.com', r'youtu\.be', r'google\.com', r'facebook\.com', r'instagram\.com']
+
+
+def _log(message: str):
+    """Helper function untuk print dengan kontrol verbose."""
+    if Config.verbose:
+        print(message)
 
 
 # ==========================================
@@ -664,68 +715,108 @@ class JudolClassifier:
 # LABELING PIPELINE (SRP: ML Pipeline & I/O)
 # ==========================================
 class LabelingPipeline:
-    """Handles ML pipeline and file I/O."""
+    """Handles ML pipeline and file I/O.
+    
+    Usage in notebook:
+        from src.labeling import create_pipeline
+        pipeline = create_pipeline()
+        
+        # Run full pipeline
+        df = pipeline.run_pipeline(input_path, output_path)
+        
+        # Or step by step:
+        df = pipeline.load_data(input_path)
+        df = pipeline.apply_initial_labels(df)
+        df, mask_expert = pipeline.apply_heuristic_cleaning(df)
+        model = pipeline.train_model(df)
+        df = pipeline.apply_final_labels(df, model, mask_expert)
+    """
     
     def __init__(self, classifier: JudolClassifier):
         self.classifier = classifier
         self.normalizer = classifier.normalizer
         self.matcher = classifier.matcher
+        self._model = None  # Cache trained model
+    
+    def _ensure_tqdm(self):
+        """Ensure tqdm is initialized for pandas."""
+        _init_tqdm()
+    
+    def _apply_with_progress(self, series: pd.Series, func):
+        """Apply function with progress bar if available."""
+        self._ensure_tqdm()
+        return series.progress_apply(func)
     
     def load_data(self, input_file: str) -> pd.DataFrame:
         """Load and deduplicate data."""
-        print("--- 1. LOADING DATA ---")
+        _log("--- 1. LOADING DATA ---")
         if not os.path.exists(input_file):
             raise FileNotFoundError(f"Error: {input_file} not found.")
         
         df = pd.read_csv(input_file)
-        print(f"Total rows: {len(df)}")
+        _log(f"Total rows: {len(df)}")
         
         if 'comment_text' not in df.columns and 'cleaned_comment_text' in df.columns:
             df['comment_text'] = df['cleaned_comment_text']
         
         initial_count = len(df)
         df.drop_duplicates(subset=['comment_text'], keep='first', inplace=True)
-        print(f"Removed {initial_count - len(df)} duplicates.")
-        print(f"Count after deduplication: {len(df)}")
+        _log(f"Removed {initial_count - len(df)} duplicates.")
+        _log(f"Count after deduplication: {len(df)}")
         
         return df
     
     def apply_initial_labels(self, df: pd.DataFrame) -> pd.DataFrame:
         """Apply initial regex-based labels."""
-        print("\n--- 2. INITIAL REGEX LABELING (WEAK) ---")
-        df['weak_label'] = df['comment_text'].progress_apply(self.classifier.classify)
-        print(f"Weak Judol Count: {df['weak_label'].sum()}")
+        _log("\n--- 2. INITIAL REGEX LABELING (WEAK) ---")
+        df['weak_label'] = self._apply_with_progress(df['comment_text'], self.classifier.classify)
+        _log(f"Weak Judol Count: {df['weak_label'].sum()}")
         return df
     
-    def apply_heuristic_cleaning(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Apply heuristic cleaning for training data."""
-        print("\n--- 3. HEURISTIC CLEANING (ANTI-JUDOL) ---")
+    def apply_heuristic_cleaning(self, df: pd.DataFrame):
+        """Apply heuristic cleaning for training data.
+        
+        Returns:
+            tuple: (df, mask_expert) - DataFrame and expert pattern mask
+        """
+        _log("\n--- 3. HEURISTIC CLEANING (ANTI-JUDOL) ---")
         df['training_label'] = df['weak_label']
         
-        print("Normalizing text...")
-        df['clean_text'] = df['comment_text'].progress_apply(self.normalizer.normalize)
+        _log("Normalizing text...")
+        df['clean_text'] = self._apply_with_progress(df['comment_text'], self.normalizer.normalize)
         
-        print("Checking for anti-gambling context...")
-        mask_anti = df['clean_text'].progress_apply(self.matcher.is_likely_anti_gambling)
+        _log("Checking for anti-gambling context...")
+        mask_anti = self._apply_with_progress(df['clean_text'], self.matcher.is_likely_anti_gambling)
         corrected_count = df.loc[mask_anti & (df['weak_label'] == 1)].shape[0]
         df.loc[mask_anti & (df['weak_label'] == 1), 'training_label'] = 0
-        print(f"Corrected {corrected_count} likely false positives (Anti-Judol) for training.")
+        _log(f"Corrected {corrected_count} likely false positives (Anti-Judol) for training.")
         
-        print("Checking expert patterns for training data...")
-        mask_expert = df['comment_text'].progress_apply(self.matcher.check_expert_pattern)
+        _log("Checking expert patterns for training data...")
+        mask_expert = self._apply_with_progress(df['comment_text'], self.matcher.check_expert_pattern)
         expert_added_count = df.loc[mask_expert & (df['training_label'] == 0)].shape[0]
         df.loc[mask_expert, 'training_label'] = 1
-        print(f"Added {expert_added_count} expert pattern labels to training data.")
+        _log(f"Added {expert_added_count} expert pattern labels to training data.")
         
         return df, mask_expert
     
-    def train_model(self, df: pd.DataFrame) -> tf.keras.Model:
-        """Train the ML model."""
-        print("\n--- 4. TRAINING AI MODEL ---")
+    def train_model(self, df: pd.DataFrame):
+        """Train the ML model.
+        
+        Returns:
+            Trained Keras model
+        """
+        # Lazy import TensorFlow
+        tf = _get_tf()
+        from tensorflow.keras.layers import TextVectorization, Embedding, GlobalAveragePooling1D, Dense, Dropout
+        from tensorflow.keras.models import Sequential
+        from tensorflow.keras.callbacks import EarlyStopping
+        from sklearn.model_selection import train_test_split
+        
+        _log("\n--- 4. TRAINING AI MODEL ---")
         X_text = df['clean_text'].values
         y = df['training_label'].values
         
-        print("Adapting TextVectorization...")
+        _log("Adapting TextVectorization...")
         vectorize_layer = TextVectorization(
             max_tokens=Config.MAX_FEATURES,
             output_mode='int',
@@ -750,27 +841,29 @@ class LabelingPipeline:
         
         early_stop = EarlyStopping(monitor='val_loss', patience=2, restore_best_weights=True)
         
-        print("Training started...")
+        _log("Training started...")
+        verbose = 1 if Config.verbose else 0
         model.fit(
             X_train, y_train,
             validation_data=(X_val, y_val),
             epochs=Config.EPOCHS,
             batch_size=Config.BATCH_SIZE,
             callbacks=[early_stop],
-            verbose=1
+            verbose=verbose
         )
         
+        self._model = model
         return model
     
-    def apply_final_labels(self, df: pd.DataFrame, model: tf.keras.Model, mask_expert) -> pd.DataFrame:
+    def apply_final_labels(self, df: pd.DataFrame, model, mask_expert) -> pd.DataFrame:
         """Apply final labels combining regex, AI, and expert patterns."""
-        print("\n--- 5. AI PREDICTION ---")
+        _log("\n--- 5. AI PREDICTION ---")
         y_pred_proba = model.predict(df['clean_text'].values, batch_size=256).flatten()
         df['ai_prob'] = y_pred_proba
         df['ai_label'] = (y_pred_proba >= 0.5).astype(int)
-        print(f"AI Judol Count: {df['ai_label'].sum()}")
+        _log(f"AI Judol Count: {df['ai_label'].sum()}")
         
-        print("\n--- 6. FINAL LABELING (COMBINED) ---")
+        _log("\n--- 6. FINAL LABELING (COMBINED) ---")
         df['final_label'] = 0
         
         # Rule 1 & 2: Trust regex
@@ -783,16 +876,16 @@ class LabelingPipeline:
         df.loc[mask_expert, 'final_label'] = 1
         
         # Rule 5: Anti-gambling override
-        print("Final anti-gambling check...")
-        mask_anti = df['clean_text'].progress_apply(self.matcher.is_likely_anti_gambling)
+        _log("Final anti-gambling check...")
+        mask_anti = self._apply_with_progress(df['clean_text'], self.matcher.is_likely_anti_gambling)
         df.loc[mask_anti, 'final_label'] = 0
         
-        print(f"Final Label Summary:")
-        print(f"  Regex (weak_label)=1: {df['weak_label'].sum()}")
-        print(f"  AI >= 0.6: {(df['ai_prob'] >= Config.AI_CONFIDENCE_THRESHOLD).sum()}")
-        print(f"  Expert Pattern: {mask_expert.sum()}")
-        print(f"  Anti-gambling (override): {mask_anti.sum()}")
-        print(f"FINAL JUDOL COUNT: {df['final_label'].sum()}")
+        _log(f"Final Label Summary:")
+        _log(f"  Regex (weak_label)=1: {df['weak_label'].sum()}")
+        _log(f"  AI >= 0.6: {(df['ai_prob'] >= Config.AI_CONFIDENCE_THRESHOLD).sum()}")
+        _log(f"  Expert Pattern: {mask_expert.sum()}")
+        _log(f"  Anti-gambling (override): {mask_anti.sum()}")
+        _log(f"FINAL JUDOL COUNT: {df['final_label'].sum()}")
         
         return df
     
@@ -802,37 +895,109 @@ class LabelingPipeline:
         cols_to_drop = ['weak_label', 'training_label', 'clean_text', 'ai_label', 'final_label']
         df.drop(columns=[c for c in cols_to_drop if c in df.columns], inplace=True)
         df.to_csv(output_file, index=False)
-        print(f"\nSaved final labeled dataset to: {output_file}")
+        _log(f"\nSaved final labeled dataset to: {output_file}")
     
-    def run(self, input_file: str, output_file: str):
-        """Run the complete labeling pipeline."""
+    def run(self, input_file: str, output_file: str) -> pd.DataFrame:
+        """Run the complete labeling pipeline.
+        
+        Returns:
+            pd.DataFrame: Labeled DataFrame
+        """
         df = self.load_data(input_file)
         df = self.apply_initial_labels(df)
         df, mask_expert = self.apply_heuristic_cleaning(df)
         model = self.train_model(df)
         df = self.apply_final_labels(df, model, mask_expert)
         self.save_results(df, output_file)
+        return df
+    
+    # Convenience method aliases for notebook use
+    run_pipeline = run
 
 
 # ==========================================
-# MAIN ENTRY POINT
+# FACTORY FUNCTIONS (For easy import in notebooks)
 # ==========================================
-def run_pipeline():
-    """Main entry point for the labeling pipeline."""
+def create_normalizer() -> TextNormalizer:
+    """Create a TextNormalizer instance."""
+    return TextNormalizer()
+
+
+def create_matcher(normalizer: Optional[TextNormalizer] = None) -> PatternMatcher:
+    """Create a PatternMatcher instance."""
+    if normalizer is None:
+        normalizer = create_normalizer()
+    return PatternMatcher(normalizer)
+
+
+def create_classifier(
+    normalizer: Optional[TextNormalizer] = None,
+    matcher: Optional[PatternMatcher] = None
+) -> JudolClassifier:
+    """Create a JudolClassifier instance."""
+    if normalizer is None:
+        normalizer = create_normalizer()
+    if matcher is None:
+        matcher = create_matcher(normalizer)
+    return JudolClassifier(normalizer, matcher)
+
+
+def create_pipeline(
+    classifier: Optional[JudolClassifier] = None,
+    verbose: bool = True
+) -> LabelingPipeline:
+    """Create a LabelingPipeline instance.
+    
+    Args:
+        classifier: Optional JudolClassifier. Created automatically if not provided.
+        verbose: Whether to print progress messages.
+    
+    Returns:
+        LabelingPipeline ready to use.
+        
+    Example:
+        from src.labeling import create_pipeline, Config
+        
+        # Quick setup
+        pipeline = create_pipeline(verbose=False)
+        df = pipeline.run('input.csv', 'output.csv')
+        
+        # Or step by step:
+        Config.verbose = True
+        pipeline = create_pipeline()
+        df = pipeline.load_data('input.csv')
+        df = pipeline.apply_initial_labels(df)
+        # ... etc
+    """
+    Config.verbose = verbose
+    if classifier is None:
+        classifier = create_classifier()
+    return LabelingPipeline(classifier)
+
+
+# ==========================================
+# MAIN ENTRY POINT (CLI)
+# ==========================================
+def main():
+    """Main entry point for CLI usage."""
+    import argparse
+    
     parser = argparse.ArgumentParser(description='Label gambling comments.')
-    parser.add_argument('--input', default=Config.DEFAULT_INPUT_FILE, help='Input CSV file')
-    parser.add_argument('--output', default=Config.DEFAULT_OUTPUT_FILE, help='Output CSV file')
+    parser.add_argument('--input', default=None, help='Input CSV file')
+    parser.add_argument('--output', default=None, help='Output CSV file')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress output')
     args = parser.parse_args()
     
-    # Initialize components (Dependency Injection)
-    normalizer = TextNormalizer()
-    matcher = PatternMatcher(normalizer)
-    classifier = JudolClassifier(normalizer, matcher)
-    pipeline = LabelingPipeline(classifier)
+    input_file = args.input or Config.get_default_input_file()
+    output_file = args.output or Config.get_default_output_file()
     
-    # Run pipeline
-    pipeline.run(args.input, args.output)
+    pipeline = create_pipeline(verbose=not args.quiet)
+    pipeline.run(input_file, output_file)
+
+
+# Backward compatibility alias
+run_pipeline = main
 
 
 if __name__ == "__main__":
-    run_pipeline()
+    main()
