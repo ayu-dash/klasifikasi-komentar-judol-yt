@@ -20,3 +20,5 @@ ipykernel>=6.27.0
 
 # YouTube API (optional - for scraping)
 google-api-python-client>=2.100.0
+
+wordcloud>=1.8.1
